@@ -33,6 +33,7 @@ class ObjectHandler():
         # Tick all loaded objects
         for tmpObject in self._objects:
             tmpObject.tick(ticks)
+            # If in game state check for collision
             if self.objectState == GameState.GAME:
                 if self.player.collider.colliderect(tmpObject.collider):
                     if not tmpObject == self.player:

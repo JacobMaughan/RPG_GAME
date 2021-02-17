@@ -33,6 +33,10 @@ class ObjectHandler():
         # Tick all loaded objects
         for tmpObject in self._objects:
             tmpObject.tick(ticks)
+            if self.objectState == GameState.GAME:
+                if self.player.collider.colliderect(tmpObject.collider):
+                    if not tmpObject == self.player:
+                        self.player.collide(tmpObject)
 
         # Scroll screen to player movement
         if self.objectState == GameState.GAME:

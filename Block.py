@@ -1,6 +1,9 @@
 # Description: The block object
 # Author: Jacob Maughan
 
+# Lib Imports
+import pygame
+
 class Block():
     def __init__(self, x, y, width, height, window):
         # Init
@@ -9,6 +12,10 @@ class Block():
         self.width = width
         self.height = height
         self.window = window
+
+        self.ID = 'Block'
+
+        self.collider = pygame.Rect(self.x, self.y, self.width, self.height)
     
     def tick(self, ticks):
         pass

@@ -163,3 +163,6 @@ class Player():
                 self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.lookRightSprite)
         elif self.playerState == PlayerState.WALKING:
             self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.activeWalkingSprite)
+    
+    def collide(self, object):
+        print('Collision:' + object.ID)

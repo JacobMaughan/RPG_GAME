@@ -24,14 +24,14 @@ class Player():
         self.velY = 0
         self.lastVelX = 0
         self.lastVelY = 0
-        self.speed = 1
+        self.speed = 4
 
         # State
         self.playerState = PlayerState.IDLE
         self.direction = Direction.DOWN
 
         # Idle Sprites
-        self.spriteSheet = SpriteSheet('./assets/character.png')
+        self.spriteSheet = SpriteSheet('./assets/art/character.png')
         self.lookUpSprite = self.spriteSheet.getImage(0, 64, 16, 32)
         self.lookUpSprite = pygame.transform.scale(self.lookUpSprite, (self.width, self.height))
         self.lookLeftSprite = self.spriteSheet.getImage(0, 96, 16, 32)

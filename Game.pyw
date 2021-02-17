@@ -8,13 +8,13 @@ import time
 import pygame
 
 # Local Imports
+from Enums import GameState
 from JsonHandler import JsonHandler
 from Window import Window
 from EventHandler import EventHandler
 from ObjectHandler import ObjectHandler
+from MapHandler import MapHandler
 from Player import Player
-from Tile import Tile
-from Enums import GameState
 
 class Game():
     def __init__(self):
@@ -29,17 +29,18 @@ class Game():
         self.width = self.settingsData['width']
         self.height = self.settingsData['height']
 
+        # Sprite scale
+        self.scaleFactor = 4
+
         # Create instance of window and handlers
         self.window = Window(self.width, self.height, 'RPG_GAME', 'path/to/logo.png')
         self.objectHandler = ObjectHandler(self)
         self.eventHandler = EventHandler(self, self.objectHandler)
+        self.mapHandler  = MapHandler(self.scaleFactor, self.objectHandler, self.window)
 
         # Setup game state
         self.state = None
         self.lastState = None
-
-        # Sprite scale
-        self.scaleFactor = 4
 
         # Game speed/Tick speed setup
         self.tickSpeed = 120
@@ -56,7 +57,7 @@ class Game():
 
     def render(self):
         # Render background
-        self.window.fillScreen(0, 255, 0)
+        self.window.fillScreen(0, 0, 0)
 
         # Render objects
         self.objectHandler.render()
@@ -70,6 +71,7 @@ class Game():
             self.objectHandler.clearObjects()
         elif self.state == GameState.GAME:
             self.objectHandler.clearObjects()
+            self.mapHandler.loadMap('area_1')
             self.objectHandler.addObject(Player(self.width / 2 - 16 * self.scaleFactor, self.height / 2 - 32 * self.scaleFactor, 16 * self.scaleFactor, 32 * self.scaleFactor, self.window))
         elif self.state == GameState.PAUSE:
             pass

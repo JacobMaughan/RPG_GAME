@@ -13,7 +13,7 @@ from Window import Window
 from EventHandler import EventHandler
 from ObjectHandler import ObjectHandler
 from Player import Player
-from Block import Block
+from Tile import Tile
 from Enums import GameState
 
 class Game():
@@ -70,7 +70,6 @@ class Game():
             self.objectHandler.clearObjects()
         elif self.state == GameState.GAME:
             self.objectHandler.clearObjects()
-            self.objectHandler.addObject(Block((self.width / 2 - 50), -75, 16 * self.scaleFactor, 16 * self.scaleFactor, self.window))
             self.objectHandler.addObject(Player(self.width / 2 - 16 * self.scaleFactor, self.height / 2 - 32 * self.scaleFactor, 16 * self.scaleFactor, 32 * self.scaleFactor, self.window))
         elif self.state == GameState.PAUSE:
             pass

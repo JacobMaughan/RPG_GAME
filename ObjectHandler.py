@@ -35,9 +35,10 @@ class ObjectHandler():
             tmpObject.tick(ticks)
             # If in game state check for collision
             if self.objectState == GameState.GAME:
-                if self.player.collider.colliderect(tmpObject.collider):
-                    if not tmpObject == self.player:
-                        self.player.collide(tmpObject)
+                if not tmpObject == self.player:
+                    if tmpObject.hasCollision:
+                        if self.player.collider.colliderect(tmpObject.collider):
+                            self.player.collide(tmpObject)
 
         # Scroll screen to player movement
         if self.objectState == GameState.GAME:

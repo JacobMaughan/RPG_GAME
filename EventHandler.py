@@ -70,6 +70,10 @@ class EventHandler():
                         if self.player.velY == -1: self.player.direction = Direction.RIGHT_UP
                         elif self.player.velY == 1: self.player.direction = Direction.RIGHT_DOWN
                         else: self.player.direction = Direction.RIGHT
+                    # Attack
+                    if event.key == pygame.K_r:
+                        self.player.animationFrame = 0
+                        self.player.playerState = PlayerState.ATTACKING
                     
                     # Added for development purposes | Must remove
                     if event.key == pygame.K_LSHIFT:

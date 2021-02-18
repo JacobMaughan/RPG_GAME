@@ -70,6 +70,10 @@ class EventHandler():
                         if self.player.velY == -1: self.player.direction = Direction.RIGHT_UP
                         elif self.player.velY == 1: self.player.direction = Direction.RIGHT_DOWN
                         else: self.player.direction = Direction.RIGHT
+                    
+                    # Added for development purposes | Must remove
+                    if event.key == pygame.K_LSHIFT:
+                        self.player.speed = 4
 
                 # Check for key up
                 if event.type == pygame.KEYUP:
@@ -85,4 +89,8 @@ class EventHandler():
                         # Set direction if needed
                         if self.player.velY == -1: self.player.direction = Direction.UP
                         elif self.player.velY == 1: self.player.direction = Direction.DOWN
+                    
+                    # Added for development purposes | Must remove
+                    if event.key == pygame.K_LSHIFT:
+                        self.player.speed = 1
                     

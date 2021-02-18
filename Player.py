@@ -24,7 +24,7 @@ class Player():
         self.velY = 0
         self.lastVelX = 0
         self.lastVelY = 0
-        self.speed = 4
+        self.speed = 1
 
         # State
         self.playerState = PlayerState.IDLE

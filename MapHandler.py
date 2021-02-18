@@ -20,7 +20,6 @@ class MapHandler():
 
         # Creating spritesheet
         self.spriteSheet = SpriteSheet('./assets/art/overworld.png')
-        
 
         # Load Sprites into array
         self._sprites = [[]]

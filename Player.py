@@ -30,48 +30,25 @@ class Player():
         self.playerState = PlayerState.IDLE
         self.direction = Direction.DOWN
 
-        # Idle Sprites
+        
+        # Creating Spritesheet
         self.spriteSheet = SpriteSheet('./assets/art/character.png')
-        self.lookUpSprite = self.spriteSheet.getImage(0, 64, 16, 32)
-        self.lookUpSprite = pygame.transform.scale(self.lookUpSprite, (self.width, self.height))
-        self.lookLeftSprite = self.spriteSheet.getImage(0, 96, 16, 32)
-        self.lookLeftSprite = pygame.transform.scale(self.lookLeftSprite, (self.width, self.height))
-        self.lookDownSprite = self.spriteSheet.getImage(0, 0, 16, 32)
-        self.lookDownSprite = pygame.transform.scale(self.lookDownSprite, (self.width, self.height))
-        self.lookRightSprite = self.spriteSheet.getImage(0, 32, 16, 32)
-        self.lookRightSprite = pygame.transform.scale(self.lookRightSprite, (self.width, self.height))
 
-        # Walk Up Sprites
-        self.walkUpSpriteOne = self.spriteSheet.getImage(16, 64, 16, 32)
-        self.walkUpSpriteOne = pygame.transform.scale(self.walkUpSpriteOne, (self.width, self.height))
-        self.walkUpSpriteTwo = self.spriteSheet.getImage(32, 64, 16, 32)
-        self.walkUpSpriteTwo = pygame.transform.scale(self.walkUpSpriteTwo, (self.width, self.height))
-        self.walkUpSpriteThree = self.spriteSheet.getImage(48, 64, 16, 32)
-        self.walkUpSpriteThree = pygame.transform.scale(self.walkUpSpriteThree, (self.width, self.height))
-
-        # Walk Left Sprites
-        self.walkLeftSpriteOne = self.spriteSheet.getImage(16, 96, 16, 32)
-        self.walkLeftSpriteOne = pygame.transform.scale(self.walkLeftSpriteOne, (self.width, self.height))
-        self.walkLeftSpriteTwo = self.spriteSheet.getImage(32, 96, 16, 32)
-        self.walkLeftSpriteTwo = pygame.transform.scale(self.walkLeftSpriteTwo, (self.width, self.height))
-        self.walkLeftSpriteThree = self.spriteSheet.getImage(48, 96, 16, 32)
-        self.walkLeftSpriteThree = pygame.transform.scale(self.walkLeftSpriteThree, (self.width, self.height))
-
-        # Walk Down Sprites
-        self.walkDownSpriteOne = self.spriteSheet.getImage(16, 0, 16, 32)
-        self.walkDownSpriteOne = pygame.transform.scale(self.walkDownSpriteOne, (self.width, self.height))
-        self.walkDownSpriteTwo = self.spriteSheet.getImage(32, 0, 16, 32)
-        self.walkDownSpriteTwo = pygame.transform.scale(self.walkDownSpriteTwo, (self.width, self.height))
-        self.walkDownSpriteThree = self.spriteSheet.getImage(48, 0, 16, 32)
-        self.walkDownSpriteThree = pygame.transform.scale(self.walkDownSpriteThree, (self.width, self.height))
-
-        # Walk Right Sprites
-        self.walkRightSpriteOne = self.spriteSheet.getImage(16, 32, 16, 32)
-        self.walkRightSpriteOne = pygame.transform.scale(self.walkRightSpriteOne, (self.width, self.height))
-        self.walkRightSpriteTwo = self.spriteSheet.getImage(32, 32, 16, 32)
-        self.walkRightSpriteTwo = pygame.transform.scale(self.walkRightSpriteTwo, (self.width, self.height))
-        self.walkRightSpriteThree = self.spriteSheet.getImage(48, 32, 16, 32)
-        self.walkRightSpriteThree = pygame.transform.scale(self.walkRightSpriteThree, (self.width, self.height))
+        # Loading sprites into array
+        self._sprites = [[]]
+        spriteY = 0
+        y = 0
+        while spriteY < 256:
+            spriteX = 0
+            x = 0
+            while x < 272:
+                self._sprites[y].append(self.spriteSheet.getImage(spriteX, spriteY ,16, 32))
+                self._sprites[y][x] = pygame.transform.scale(self._sprites[y][x], (self.width, self.height))
+                spriteX += 16
+                x += 1
+            self._sprites.append([])
+            spriteY += 32
+            y += 1
 
         # Active Walking Sprite
         self.activeWalkingSprite = None
@@ -103,59 +80,59 @@ class Player():
         # Set Walking Animation Frame For Sprite
         if self.playerState == PlayerState.WALKING:
             if ticks in range(20):
-                if self.direction == Direction.UP: self.activeWalkingSprite = self.lookUpSprite
-                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self.lookLeftSprite
-                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self.lookDownSprite
-                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self.lookRightSprite
-                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self.lookLeftSprite
-                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self.lookLeftSprite
-                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self.lookRightSprite
-                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self.lookRightSprite
+                if self.direction == Direction.UP: self.activeWalkingSprite = self._sprites[2][0]
+                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self._sprites[3][0]
+                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self._sprites[0][0]
+                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self._sprites[1][0]
+                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self._sprites[3][0]
+                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self._sprites[3][0]
+                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self._sprites[1][0]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self._sprites[1][0]
             elif ticks in range(20, 40):
-                if self.direction == Direction.UP: self.activeWalkingSprite = self.walkUpSpriteOne
-                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self.walkLeftSpriteOne
-                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self.walkDownSpriteOne
-                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self.walkRightSpriteOne
-                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self.walkLeftSpriteOne
-                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self.walkLeftSpriteOne
-                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self.walkRightSpriteOne
-                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self.walkRightSpriteOne
+                if self.direction == Direction.UP: self.activeWalkingSprite = self._sprites[2][1]
+                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self._sprites[3][1]
+                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self._sprites[0][1]
+                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self._sprites[1][1]
+                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self._sprites[3][1]
+                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self._sprites[3][1]
+                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self._sprites[1][1]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self._sprites[1][1]
             elif ticks in range(40, 60):
-                if self.direction == Direction.UP: self.activeWalkingSprite = self.walkUpSpriteTwo
-                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self.walkLeftSpriteTwo
-                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self.walkDownSpriteTwo
-                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self.walkRightSpriteTwo
-                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self.walkLeftSpriteTwo
-                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self.walkLeftSpriteTwo
-                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self.walkRightSpriteTwo
-                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self.walkRightSpriteTwo
+                if self.direction == Direction.UP: self.activeWalkingSprite = self._sprites[2][2]
+                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self._sprites[3][2]
+                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self._sprites[0][2]
+                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self._sprites[1][2]
+                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self._sprites[3][2]
+                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self._sprites[3][2]
+                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self._sprites[1][2]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self._sprites[1][2]
             elif ticks in range(60, 80):
-                if self.direction == Direction.UP: self.activeWalkingSprite = self.walkUpSpriteThree
-                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self.walkLeftSpriteThree
-                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self.walkDownSpriteThree
-                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self.walkRightSpriteThree
-                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self.walkLeftSpriteThree
-                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self.walkLeftSpriteThree
-                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self.walkRightSpriteThree
-                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self.walkRightSpriteThree
+                if self.direction == Direction.UP: self.activeWalkingSprite = self._sprites[2][3]
+                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self._sprites[3][3]
+                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self._sprites[0][3]
+                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self._sprites[1][3]
+                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self._sprites[3][3]
+                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self._sprites[3][3]
+                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self._sprites[1][3]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self._sprites[1][3]
             elif ticks in range(80, 100):
-                if self.direction == Direction.UP: self.activeWalkingSprite = self.lookUpSprite
-                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self.lookLeftSprite
-                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self.lookDownSprite
-                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self.lookRightSprite
-                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self.lookLeftSprite
-                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self.lookLeftSprite
-                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self.lookRightSprite
-                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self.lookRightSprite
+                if self.direction == Direction.UP: self.activeWalkingSprite = self._sprites[2][0]
+                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self._sprites[3][0]
+                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self._sprites[0][0]
+                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self._sprites[1][0]
+                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self._sprites[3][0]
+                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self._sprites[3][0]
+                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self._sprites[1][0]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self._sprites[1][0]
             elif ticks >= 100:
-                if self.direction == Direction.UP: self.activeWalkingSprite = self.walkUpSpriteOne
-                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self.walkLeftSpriteOne
-                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self.walkDownSpriteOne
-                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self.walkRightSpriteOne
-                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self.walkLeftSpriteOne
-                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self.walkLeftSpriteOne
-                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self.walkRightSpriteOne
-                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self.walkRightSpriteOne
+                if self.direction == Direction.UP: self.activeWalkingSprite = self._sprites[2][1]
+                elif self.direction == Direction.LEFT: self.activeWalkingSprite = self._sprites[3][1]
+                elif self.direction == Direction.DOWN: self.activeWalkingSprite = self._sprites[0][1]
+                elif self.direction == Direction.RIGHT: self.activeWalkingSprite = self._sprites[1][1]
+                elif self.direction == Direction.LEFT_UP: self.activeWalkingSprite = self._sprites[3][1]
+                elif self.direction == Direction.LEFT_DOWN: self.activeWalkingSprite = self._sprites[3][1]
+                elif self.direction == Direction.RIGHT_UP: self.activeWalkingSprite = self._sprites[1][1]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeWalkingSprite = self._sprites[1][1]
 
     def render(self, scrollX, scrollY):
         # Render Collider on bottom
@@ -164,18 +141,18 @@ class Player():
         # Render Sprite
         if self.playerState == PlayerState.IDLE:
             if self.direction == Direction.UP:
-                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.lookUpSprite)
+                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self._sprites[2][0])
             elif self.direction == Direction.LEFT:
-                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.lookLeftSprite)
+                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self._sprites[3][0])
             elif self.direction == Direction.DOWN:
-                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.lookDownSprite)
+                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self._sprites[0][0])
             elif self.direction == Direction.RIGHT:
-                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.lookRightSprite)
+                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self._sprites[1][0])
         elif self.playerState == PlayerState.WALKING:
             self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.activeWalkingSprite)
 
         # Render Collider on top
-        self.window.drawRect(self.collider.x - scrollX, self.collider.y - scrollY, self.collider.width, self.collider.height, 0, 0, 255)
+        #self.window.drawRect(self.collider.x - scrollX, self.collider.y - scrollY, self.collider.width, self.collider.height, 0, 0, 255)
     
     # Recieves detected collision
     def collide(self, collision):

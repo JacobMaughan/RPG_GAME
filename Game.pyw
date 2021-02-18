@@ -22,7 +22,7 @@ class Game():
         pygame.init()
 
         # Load settings
-        self.settingsFile = JsonHandler('./json/settings.json')
+        self.settingsFile = JsonHandler('./assets/data/settings.json')
         self.settingsData = self.settingsFile.getJson()
 
         # Set width and height from settings

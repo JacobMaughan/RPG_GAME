@@ -9,7 +9,7 @@ class Window():
         # Init
         self.screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption(title)
-        #pygame.display.set_icon(pygame.image.load(iconPath))
+        pygame.display.set_icon(pygame.image.load(iconPath))
     
     # Fill full screen
     def fillScreen(self, r, g, b):

@@ -33,7 +33,7 @@ class Game():
         self.scaleFactor = 4
 
         # Create instance of window and handlers
-        self.window = Window(self.width, self.height, 'RPG_GAME', 'path/to/logo.png')
+        self.window = Window(self.width, self.height, 'RPG_GAME', 'assets/art/logo.png')
         self.objectHandler = ObjectHandler(self)
         self.eventHandler = EventHandler(self, self.objectHandler)
         self.mapHandler  = MapHandler(self.scaleFactor, self.objectHandler, self.window)

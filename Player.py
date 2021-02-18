@@ -56,11 +56,19 @@ class Player():
         self.colliderOffsetX = 20
         self.colliderOffsetY = 90
 
+        self.swordColliderOffsetX = [0, -5, 0, 45]
+        self.swordColliderOffsetY = [25, 50, 90, 50]
+
         self.collider = pygame.Rect(self.x + self.colliderOffsetX, self.y + self.colliderOffsetY, 25, 10)
         self.topCollider = pygame.Rect(self.collider.x + self.collider.width * 0.1, self.collider.y, self.collider.width * 0.8, self.collider.height * 0.1)
         self.leftCollider = pygame.Rect(self.collider.x, self.collider.y + self.collider.height * 0.1, self.collider.width * 0.1, self.collider.height * 0.8)
         self.bottomCollider = pygame.Rect(self.collider.x + self.collider.width * 0.1, self.collider.y + self.collider.height * 0.9, self.collider.width * 0.8, self.collider.height * 0.1)
         self.rightCollider = pygame.Rect(self.collider.x + self.collider.width * 0.9, self.collider.y + self.collider.height * 0.1, self.collider.width * 0.1, self.collider.height * 0.8)
+
+        self.swordColliderTop = pygame.Rect(self.x + self.swordColliderOffsetX[0], self.y + self.swordColliderOffsetY[0], self.width, 30)
+        self.swordColliderLeft = pygame.Rect(self.x + self.swordColliderOffsetX[1], self.y + self.swordColliderOffsetY[1], 30, 50)
+        self.swordColliderBottom = pygame.Rect(self.x + self.swordColliderOffsetX[2], self.y + self.swordColliderOffsetY[2], self.width, 30)
+        self.swordColliderRight = pygame.Rect(self.x + self.swordColliderOffsetX[3], self.y + self.swordColliderOffsetY[3], 30, 50)
 
         self.lastTick = 0
         self.animationFrame = 0
@@ -76,6 +84,15 @@ class Player():
         # Set collider to x and y value
         self.collider.x = self.x + self.colliderOffsetX
         self.collider.y = self.y + self.colliderOffsetY
+
+        self.swordColliderTop.x = self.x + self.swordColliderOffsetX[0]
+        self.swordColliderTop.y = self.y + self.swordColliderOffsetY[0]
+        self.swordColliderLeft.x = self.x + self.swordColliderOffsetX[1]
+        self.swordColliderLeft.y = self.y + self.swordColliderOffsetY[1]
+        self.swordColliderBottom.x = self.x + self.swordColliderOffsetX[2]
+        self.swordColliderBottom.y = self.y + self.swordColliderOffsetY[2]
+        self.swordColliderRight.x = self.x + self.swordColliderOffsetX[3]
+        self.swordColliderRight.y = self.y + self.swordColliderOffsetY[3]
         
         # Set Animation Frame For Sprite
         if self.playerState == PlayerState.WALKING:
@@ -199,6 +216,10 @@ class Player():
 
         # Render Collider on top
         #self.window.drawRect(self.collider.x - scrollX, self.collider.y - scrollY, self.collider.width, self.collider.height, 0, 0, 255)
+        #self.window.drawRect(self.swordColliderTop.x - scrollX, self.swordColliderTop.y - scrollY, self.swordColliderTop.width, self.swordColliderTop.height, 0, 0, 255)
+        #self.window.drawRect(self.swordColliderBottom.x - scrollX, self.swordColliderBottom.y - scrollY, self.swordColliderBottom.width, self.swordColliderBottom.height, 0, 0, 255)
+        #self.window.drawRect(self.swordColliderLeft.x - scrollX, self.swordColliderLeft.y - scrollY, self.swordColliderLeft.width, self.swordColliderLeft.height, 0, 0, 255)
+        #self.window.drawRect(self.swordColliderRight.x - scrollX, self.swordColliderRight.y - scrollY, self.swordColliderRight.width, self.swordColliderRight.height, 0, 0, 255)
     
     # Recieves detected collision
     def collide(self, collision):

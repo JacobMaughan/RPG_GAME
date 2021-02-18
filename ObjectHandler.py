@@ -35,7 +35,7 @@ class ObjectHandler():
             tmpObject.tick(ticks)
             # If in game state check for collision
             if self.objectState == GameState.GAME:
-                if not tmpObject == self.player:
+                if tmpObject.ID == 'Tile':
                     if tmpObject.hasCollision:
                         if self.player.collider.colliderect(tmpObject.collider):
                             self.player.collide(tmpObject)
@@ -45,7 +45,6 @@ class ObjectHandler():
             self.scrollX += (self.player.x - self.scrollX - ((self.game.width - self.player.width) / 2)) / 20
             self.scrollY += (self.player.y - self.scrollY - ((self.game.height - self.player.height) / 2)) / 20
 
-    
     def render(self):
         # Render all loaded objects
         for tmpObject in self._objects:
@@ -70,3 +69,10 @@ class ObjectHandler():
         for i in range(len(self._objects)):
             if self._objects[i].ID == ID:
                 return self._objects[i]
+    
+    def getCollision(self, collider):
+        returnObjects = []
+        for tmpObject in self._objects:
+            if collider.colliderect(tmpObject.collider):
+                returnObjects.append(tmpObject)
+        return returnObjects

@@ -15,6 +15,7 @@ from EventHandler import EventHandler
 from ObjectHandler import ObjectHandler
 from MapHandler import MapHandler
 from Player import Player
+from TestBlock import TestBlock
 
 class Game():
     def __init__(self):
@@ -73,6 +74,7 @@ class Game():
             self.objectHandler.clearObjects()
             self.mapHandler.loadMap('area_1')
             self.objectHandler.addObject(Player(self.width / 2 - 16 * self.scaleFactor, self.height / 2 - 32 * self.scaleFactor, 16 * self.scaleFactor, 32 * self.scaleFactor, self.window))
+            self.objectHandler.addObject(TestBlock(10, 10, 100, 100, self.window))
         elif self.state == GameState.PAUSE:
             pass
 

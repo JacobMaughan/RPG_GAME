@@ -42,7 +42,8 @@ class EventHandler():
                     if event.key == pygame.K_w:
                         self.player.velY = -1
                         # Set state and direction if needed
-                        self.player.playerState = PlayerState.WALKING
+                        if self.player.playerState == PlayerState.IDLE:
+                            self.player.playerState = PlayerState.WALKING
                         if self.player.velX == -1: self.player.direction = Direction.LEFT_UP
                         elif self.player.velX == 1: self.player.direction = Direction.RIGHT_UP
                         else: self.player.direction = Direction.UP
@@ -50,7 +51,8 @@ class EventHandler():
                     if event.key == pygame.K_a:
                         self.player.velX = -1
                         # Set state and direction if needed
-                        self.player.playerState = PlayerState.WALKING
+                        if self.player.playerState == PlayerState.IDLE:
+                            self.player.playerState = PlayerState.WALKING
                         if self.player.velY == -1: self.player.direction = Direction.LEFT_UP
                         elif self.player.velY == 1: self.player.direction = Direction.LEFT_DOWN
                         else: self.player.direction = Direction.LEFT
@@ -58,7 +60,8 @@ class EventHandler():
                     if event.key == pygame.K_s:
                         self.player.velY = 1
                         # Set state and direction if needed
-                        self.player.playerState = PlayerState.WALKING
+                        if self.player.playerState == PlayerState.IDLE:
+                            self.player.playerState = PlayerState.WALKING
                         if self.player.velX == -1: self.player.direction = Direction.LEFT_DOWN
                         elif self.player.velX == 1: self.player.direction = Direction.RIGHT_DOWN
                         else: self.player.direction = Direction.DOWN
@@ -66,7 +69,8 @@ class EventHandler():
                     if event.key == pygame.K_d:
                         self.player.velX = 1
                         # Set state and direction if needed
-                        self.player.playerState = PlayerState.WALKING
+                        if self.player.playerState == PlayerState.IDLE:
+                            self.player.playerState = PlayerState.WALKING
                         if self.player.velY == -1: self.player.direction = Direction.RIGHT_UP
                         elif self.player.velY == 1: self.player.direction = Direction.RIGHT_DOWN
                         else: self.player.direction = Direction.RIGHT
@@ -74,6 +78,30 @@ class EventHandler():
                     if event.key == pygame.K_r:
                         self.player.animationFrame = 0
                         self.player.playerState = PlayerState.ATTACKING
+                        if self.player.direction == Direction.UP:
+                            collideObjects = self.objectHandler.getCollision(self.player.swordColliderTop)
+                            if not collideObjects == []:
+                                for tmpObject in collideObjects:
+                                    if tmpObject.ID == 'Enemy':
+                                        tmpObject.hit = True
+                        elif self.player.direction == Direction.LEFT or self.player.direction == Direction.LEFT_DOWN or self.player.direction == Direction.LEFT_UP:
+                            collideObjects = self.objectHandler.getCollision(self.player.swordColliderLeft)
+                            if not collideObjects == []:
+                                for tmpObject in collideObjects:
+                                    if tmpObject.ID == 'Enemy':
+                                        tmpObject.hit = True
+                        elif self.player.direction == Direction.DOWN:
+                            collideObjects = self.objectHandler.getCollision(self.player.swordColliderBottom)
+                            if not collideObjects == []:
+                                for tmpObject in collideObjects:
+                                    if tmpObject.ID == 'Enemy':
+                                        tmpObject.hit = True
+                        elif self.player.direction == Direction.RIGHT or self.player.direction == Direction.RIGHT_DOWN or self.player.direction == Direction.RIGHT_UP:
+                            collideObjects = self.objectHandler.getCollision(self.player.swordColliderRight)
+                            if not collideObjects == []:
+                                for tmpObject in collideObjects:
+                                    if tmpObject.ID == 'Enemy':
+                                        tmpObject.hit = True
                     
                     # Added for development purposes | Must remove
                     if event.key == pygame.K_LSHIFT:

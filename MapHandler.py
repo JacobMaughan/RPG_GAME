@@ -10,6 +10,7 @@ from JsonHandler import JsonHandler
 from SpriteSheet import SpriteSheet
 from SignTrigger import SignTrigger
 from ZoneTrigger import ZoneTrigger
+from Enemy import Enemy
 from Tile import Tile
 
 class MapHandler():
@@ -39,6 +40,7 @@ class MapHandler():
         map = mapToLoad['map']
         signData = mapToLoad['signs']
         newZoneData = mapToLoad['newZoneTriggers']
+        enemyData = mapToLoad['enemys']
         self.objectHandler.setScrollClamp(len(map[0]) * self.tileSize, len(map) * self.tileSize)
         for y in range(len(map)):
             for x in range(len(map[y])):
@@ -140,3 +142,5 @@ class MapHandler():
             self.objectHandler.addObject(SignTrigger(signData[i]['x'], signData[i]['y'], signData[i]['text'], signData[i]['size'], [self._objectSprites[15][10], self._objectSprites[14][10], self._objectSprites[14][9], self._objectSprites[15][9], self._objectSprites[16][9], self._objectSprites[16][10], self._objectSprites[16][11], self._objectSprites[15][11], self._objectSprites[14][11]], self.window))
         for i in range(len(newZoneData)):
             self.objectHandler.addObject(ZoneTrigger(newZoneData[i]['x'], newZoneData[i]['y'], newZoneData[i]['size'], Direction(newZoneData[i]['direction']), newZoneData[i]['newZone'], newZoneData[i]['newX'], newZoneData[i]['newY'], self, self.objectHandler, self.window))
+        for i in range(len(enemyData)):
+            self.objectHandler.addObject(Enemy(enemyData[i]['x'], enemyData[i]['y'], Direction(enemyData[i]['direction']), self.objectHandler, self.window))

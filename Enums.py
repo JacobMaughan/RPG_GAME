@@ -9,12 +9,6 @@ class GameState(Enum):
     GAME = 2
     PAUSE = 3
 
-class PlayerState(Enum):
-    IDLE = 1
-    WALKING = 2
-    ATTACKING = 3
-    INTERACTING = 4
-
 class Direction(Enum):
     UP = 1
     LEFT = 2
@@ -24,3 +18,13 @@ class Direction(Enum):
     LEFT_DOWN = 6
     RIGHT_UP = 7
     RIGHT_DOWN = 8
+
+class PlayerState(Enum):
+    IDLE = 1
+    WALKING = 2
+    ATTACKING = 3
+    INTERACTING = 4
+
+class EnemyState(Enum):
+    IDLE = 1
+    WALKING = 2

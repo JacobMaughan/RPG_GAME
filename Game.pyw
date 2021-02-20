@@ -8,6 +8,7 @@ import time
 import pygame
 
 # Local Imports
+from Enums import Direction
 from Enums import GameState
 from Window import Window
 from JsonHandler import JsonHandler
@@ -15,7 +16,7 @@ from EventHandler import EventHandler
 from ObjectHandler import ObjectHandler
 from MapHandler import MapHandler
 from Player import Player
-from TestBlock import TestBlock
+from Enemy import Enemy
 
 class Game():
     def __init__(self):
@@ -80,7 +81,6 @@ class Game():
             self.objectHandler.clearObjects()
             self.mapHandler.loadMap(self.playerData['map'])
             self.objectHandler.addObject(Player(self.playerFile, self.window))
-            #self.objectHandler.addObject(TestBlock(10, 10, 100, 100, self.window))
         elif self.state == GameState.PAUSE:
             pass
 

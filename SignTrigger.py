@@ -5,12 +5,21 @@
 import pygame
 
 class SignTrigger():
-    def __init__(self, x, y, text, window):
+    def __init__(self, x, y, text, size, sprites, window):
         # Init
         self.x = x
         self.y = y
         self.text = text
+        self.size = size
+        self.sprites = sprites
         self.window = window
+
+        # Rescaling Sprites
+        self.sprites[0] = pygame.transform.scale(self.sprites[0], (self.window.screen.get_width() - 16 * 4 * self.window.scaleFactor, 16 * 2 * self.window.scaleFactor))
+        self.sprites[1] = pygame.transform.scale(self.sprites[1], (self.window.screen.get_width() - 16 * 4 * self.window.scaleFactor, self.sprites[1].get_height()))
+        self.sprites[3] = pygame.transform.scale(self.sprites[3], (self.sprites[3].get_width(), 16 * 2 * self.window.scaleFactor))
+        self.sprites[5] = pygame.transform.scale(self.sprites[5], (self.window.screen.get_width() - 16 * 4 * self.window.scaleFactor, self.sprites[1].get_height()))
+        self.sprites[7] = pygame.transform.scale(self.sprites[7], (self.sprites[3].get_width(), 16 * 2 * self.window.scaleFactor))
 
         # Personalized
         self.ID = 'Sign'
@@ -28,6 +37,15 @@ class SignTrigger():
         pass
 
     def render(self, scrollX, scrollY):
-        pass
-        # Render Sign Collider
-        #self.window.drawRect(self.collider.x - scrollX, self.collider.y - scrollY, self.width, self.height, 255, 0, 0)
+        if self.textActive:
+            self.window.drawSprite(16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 4 * self.window.scaleFactor, self.sprites[0])
+            self.window.drawSprite(16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 5 * self.window.scaleFactor, self.sprites[1])
+            self.window.drawSprite(16 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 5 * self.window.scaleFactor, self.sprites[2])
+            self.window.drawSprite(16 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 4 * self.window.scaleFactor, self.sprites[3])
+            self.window.drawSprite(16 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 2 * self.window.scaleFactor, self.sprites[4])
+            self.window.drawSprite(16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 2 * self.window.scaleFactor, self.sprites[5])
+            self.window.drawSprite(self.window.screen.get_width() - 16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 2 * self.window.scaleFactor, self.sprites[6])
+            self.window.drawSprite(self.window.screen.get_width() - 16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 4 * self.window.scaleFactor, self.sprites[7])
+            self.window.drawSprite(self.window.screen.get_width() - 16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 5 * self.window.scaleFactor, self.sprites[8])
+            self.window.drawText(16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 4 * self.window.scaleFactor, self.text, self.size)
+            

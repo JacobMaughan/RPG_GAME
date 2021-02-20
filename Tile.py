@@ -26,4 +26,4 @@ class Tile():
 
     def render(self, scrollX, scrollY):
         # Render tile
-        self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.sprite)
+        self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.sprite)

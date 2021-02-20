@@ -5,8 +5,9 @@
 import pygame
 
 class Window():
-    def __init__(self, width, height, title, iconPath):
+    def __init__(self, scaleFactor, width, height, title, iconPath):
         # Init
+        self.scaleFactor = scaleFactor
         self.screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption(title)
         pygame.display.set_icon(pygame.image.load(iconPath))
@@ -20,5 +21,10 @@ class Window():
         pygame.draw.rect(self.screen, (r, g, b), (x, y, width, height))
     
     # Draw a sprite to screen
-    def drawSprite(self, x, y, width, height, image):
-        self.screen.blit(image, (x, y, width, height))
+    def drawSprite(self, x, y, image):
+        self.screen.blit(image, (x, y))
+    
+    def drawText(self, x, y, text, size):
+        font = pygame.font.SysFont('./assets/fonts/BitScript.ttf', size)
+        textImage = font.render(text, True, (0, 0, 0))
+        self.screen.blit(textImage, (x, y))

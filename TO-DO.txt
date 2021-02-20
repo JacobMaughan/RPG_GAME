@@ -1,4 +1,3 @@
-1. Add showing text when interacting with sign
-2. Add Enemys
-3. Add NPC's
-5. Add UI
+1. Add Enemys
+2. Add NPC's
+3. Add UI

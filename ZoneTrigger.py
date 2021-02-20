@@ -8,12 +8,10 @@ import pygame
 from Enums import Direction
 
 class ZoneTrigger():
-    def __init__(self, x, y, size, direction, newZone, newX, newY, scaleFactor, mapHandler, objectHandler, window):
+    def __init__(self, x, y, size, direction, newZone, newX, newY, mapHandler, objectHandler, window):
         # Init
         self.x = x
         self.y = y
-        self.scaleFactor = scaleFactor
-        self.size = size * 16 * scaleFactor
         self.direction = direction
         self.newZone = newZone
         self.newX = newX
@@ -21,6 +19,8 @@ class ZoneTrigger():
         self.objectHandler = objectHandler
         self.mapHandler = mapHandler
         self.window = window
+
+        self.size = size * 16 * self.window.scaleFactor
 
         # Personalized
         self.ID = 'NewZoneTrigger'

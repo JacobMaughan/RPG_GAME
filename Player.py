@@ -10,9 +10,8 @@ from Enums import PlayerState
 from SpriteSheet import SpriteSheet
 
 class Player():
-    def __init__(self, playerFile, scaleFactor, window):
+    def __init__(self, playerFile, window):
         # Init
-        self.scaleFactor = scaleFactor
         self.window = window
 
         # Personalized
@@ -20,8 +19,8 @@ class Player():
         self.playerData = self.playerFile.getJson()
 
         self.ID = 'Player'
-        self.width = 16 * self.scaleFactor
-        self.height = 32 * self.scaleFactor
+        self.width = 16 * self.window.scaleFactor
+        self.height = 32 * self.window.scaleFactor
         self.velX = 0
         self.velY = 0
         self.map = self.playerData['map']
@@ -101,7 +100,7 @@ class Player():
         #self.window.drawRect(self.collider.x - scrollX, self.collider.y - scrollY, self.collider.width, self.collider.height, 0, 0, 255)
 
         # Render Sprite
-        self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.activeSprite)
+        self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.activeSprite)
 
         # Render Collider on top
         #self.window.drawRect(self.collider.x - scrollX, self.collider.y - scrollY, self.collider.width, self.collider.height, 0, 0, 255)
@@ -291,11 +290,10 @@ class Player():
                 if tmpObject.ID == 'Sign':
                     if self.playerState == PlayerState.INTERACTING:
                         self.playerState = PlayerState.IDLE
-                        print('stopped interacted')
+                        tmpObject.textActive = False
                     else:
                         self.playerState = PlayerState.INTERACTING
                         tmpObject.textActive = True
-                        print('interacted')
 
     # Recieves detected collision
     def collide(self, collision):

@@ -32,14 +32,14 @@ class Game():
         self.width = self.settingsData['width']
         self.height = self.settingsData['height']
 
-        # Sprite scale
-        self.scaleFactor = 4
+        # Sprite scale from settings
+        self.scaleFactor = self.settingsData['scaleFactor']
 
         # Create instance of window and handlers
-        self.window = Window(self.width, self.height, 'RPG_GAME', 'assets/art/logo.png')
+        self.window = Window(self.scaleFactor, self.width, self.height, 'RPG_GAME', 'assets/art/logo.png')
         self.objectHandler = ObjectHandler(self)
         self.eventHandler = EventHandler(self, self.objectHandler)
-        self.mapHandler  = MapHandler(self.scaleFactor, self.objectHandler, self.window)
+        self.mapHandler = MapHandler(self.objectHandler, self.window)
 
         # Setup game state
         self.state = None
@@ -52,7 +52,7 @@ class Game():
     def tick(self):
         # Setup tick counter | If tick count hit tickSpeed,  1 second has elapsed and set ticks to 0
         self.ticks += 1
-
+        
         # Check if state has changed and load objects if has
         if not self.lastState == self.state:
             self.lastState = self.state
@@ -79,7 +79,7 @@ class Game():
         elif self.state == GameState.GAME:
             self.objectHandler.clearObjects()
             self.mapHandler.loadMap(self.playerData['map'])
-            self.objectHandler.addObject(Player(self.playerFile, self.scaleFactor, self.window))
+            self.objectHandler.addObject(Player(self.playerFile, self.window))
             #self.objectHandler.addObject(TestBlock(10, 10, 100, 100, self.window))
         elif self.state == GameState.PAUSE:
             pass

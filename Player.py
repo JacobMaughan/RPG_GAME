@@ -50,7 +50,7 @@ class Player():
             y += 1
 
         # Active sprites
-        self.activeAnimationSprite = self._sprites[0][0]
+        self.activeSprite = None
 
         # Collision | Must set offsets for main collider
         self.colliderOffsetX = 20
@@ -74,6 +74,11 @@ class Player():
         self.animationFrame = 0
 
     def tick(self, ticks):
+        # Check if moving and set player state
+        if self.playerState == PlayerState.IDLE:
+            if not self.velX == 0 or not self.velY == 0:
+                self.playerState = PlayerState.WALKING
+
         # Move player by vel and set player state if stopped walking
         if self.playerState == PlayerState.WALKING:
             self.x += self.velX * self.speed
@@ -81,7 +86,7 @@ class Player():
             if self.velX == 0 and self.velY == 0:
                 self.playerState = PlayerState.IDLE
         
-        # Set collider to x and y value
+        # Set collider's to x and y value
         self.collider.x = self.x + self.colliderOffsetX
         self.collider.y = self.y + self.colliderOffsetY
 
@@ -93,126 +98,16 @@ class Player():
         self.swordColliderBottom.y = self.y + self.swordColliderOffsetY[2]
         self.swordColliderRight.x = self.x + self.swordColliderOffsetX[3]
         self.swordColliderRight.y = self.y + self.swordColliderOffsetY[3]
-        
-        # Set Animation Frame For Sprite
-        if self.playerState == PlayerState.WALKING:
-            if self.animationFrame == 0:
-                self.lastTick = ticks
-                self.animationFrame += 1
-            elif self.animationFrame == 1:
-                if self.direction == Direction.UP: self.activeAnimationSprite = self._sprites[2][0]
-                elif self.direction == Direction.LEFT: self.activeAnimationSprite = self._sprites[3][0]
-                elif self.direction == Direction.DOWN: self.activeAnimationSprite = self._sprites[0][0]
-                elif self.direction == Direction.RIGHT: self.activeAnimationSprite = self._sprites[1][0]
-                elif self.direction == Direction.LEFT_UP: self.activeAnimationSprite = self._sprites[3][0]
-                elif self.direction == Direction.LEFT_DOWN: self.activeAnimationSprite = self._sprites[3][0]
-                elif self.direction == Direction.RIGHT_UP: self.activeAnimationSprite = self._sprites[1][0]
-                elif self.direction == Direction.RIGHT_DOWN: self.activeAnimationSprite = self._sprites[1][0]
-            elif self.animationFrame == 2:
-                if self.direction == Direction.UP: self.activeAnimationSprite = self._sprites[2][1]
-                elif self.direction == Direction.LEFT: self.activeAnimationSprite = self._sprites[3][1]
-                elif self.direction == Direction.DOWN: self.activeAnimationSprite = self._sprites[0][1]
-                elif self.direction == Direction.RIGHT: self.activeAnimationSprite = self._sprites[1][1]
-                elif self.direction == Direction.LEFT_UP: self.activeAnimationSprite = self._sprites[3][1]
-                elif self.direction == Direction.LEFT_DOWN: self.activeAnimationSprite = self._sprites[3][1]
-                elif self.direction == Direction.RIGHT_UP: self.activeAnimationSprite = self._sprites[1][1]
-                elif self.direction == Direction.RIGHT_DOWN: self.activeAnimationSprite = self._sprites[1][1]
-            elif self.animationFrame == 3:
-                if self.direction == Direction.UP: self.activeAnimationSprite = self._sprites[2][2]
-                elif self.direction == Direction.LEFT: self.activeAnimationSprite = self._sprites[3][2]
-                elif self.direction == Direction.DOWN: self.activeAnimationSprite = self._sprites[0][2]
-                elif self.direction == Direction.RIGHT: self.activeAnimationSprite = self._sprites[1][2]
-                elif self.direction == Direction.LEFT_UP: self.activeAnimationSprite = self._sprites[3][2]
-                elif self.direction == Direction.LEFT_DOWN: self.activeAnimationSprite = self._sprites[3][2]
-                elif self.direction == Direction.RIGHT_UP: self.activeAnimationSprite = self._sprites[1][2]
-                elif self.direction == Direction.RIGHT_DOWN: self.activeAnimationSprite = self._sprites[1][2]
-            elif self.animationFrame == 4:
-                if self.direction == Direction.UP: self.activeAnimationSprite = self._sprites[2][3]
-                elif self.direction == Direction.LEFT: self.activeAnimationSprite = self._sprites[3][3]
-                elif self.direction == Direction.DOWN: self.activeAnimationSprite = self._sprites[0][3]
-                elif self.direction == Direction.RIGHT: self.activeAnimationSprite = self._sprites[1][3]
-                elif self.direction == Direction.LEFT_UP: self.activeAnimationSprite = self._sprites[3][3]
-                elif self.direction == Direction.LEFT_DOWN: self.activeAnimationSprite = self._sprites[3][3]
-                elif self.direction == Direction.RIGHT_UP: self.activeAnimationSprite = self._sprites[1][3]
-                elif self.direction == Direction.RIGHT_DOWN: self.activeAnimationSprite = self._sprites[1][3]
-            if ticks - self.lastTick == 20:
-                if ticks >= 100:
-                    self.lastTick = 20 - (120 - ticks)
-                else:
-                    self.lastTick = ticks
-                self.animationFrame += 1
-            if self.animationFrame == 5:
-                self.animationFrame = 1
-        elif self.playerState == PlayerState.ATTACKING:
-            if self.animationFrame == 0:
-                self.lastTick = ticks
-                self.animationFrame += 1
-            if self.animationFrame == 1:
-                if self.direction == Direction.UP: self.activeAnimationSprite = self._sprites[5][0]
-                elif self.direction == Direction.LEFT: self.activeAnimationSprite = self._sprites[7][0]
-                elif self.direction == Direction.DOWN: self.activeAnimationSprite = self._sprites[4][0]
-                elif self.direction == Direction.RIGHT: self.activeAnimationSprite = self._sprites[6][0]
-                elif self.direction == Direction.LEFT_UP: self.activeAnimationSprite = self._sprites[7][0]
-                elif self.direction == Direction.LEFT_DOWN: self.activeAnimationSprite = self._sprites[7][0]
-                elif self.direction == Direction.RIGHT_UP: self.activeAnimationSprite = self._sprites[6][0]
-                elif self.direction == Direction.RIGHT_DOWN: self.activeAnimationSprite = self._sprites[6][0]
-            elif self.animationFrame == 2:
-                if self.direction == Direction.UP: self.activeAnimationSprite = self._sprites[5][1]
-                elif self.direction == Direction.LEFT: self.activeAnimationSprite = self._sprites[7][1]
-                elif self.direction == Direction.DOWN: self.activeAnimationSprite = self._sprites[4][1]
-                elif self.direction == Direction.RIGHT: self.activeAnimationSprite = self._sprites[6][1]
-                elif self.direction == Direction.LEFT_UP: self.activeAnimationSprite = self._sprites[7][1]
-                elif self.direction == Direction.LEFT_DOWN: self.activeAnimationSprite = self._sprites[7][1]
-                elif self.direction == Direction.RIGHT_UP: self.activeAnimationSprite = self._sprites[6][1]
-                elif self.direction == Direction.RIGHT_DOWN: self.activeAnimationSprite = self._sprites[6][1]
-            elif self.animationFrame == 3:
-                if self.direction == Direction.UP: self.activeAnimationSprite = self._sprites[5][2]
-                elif self.direction == Direction.LEFT: self.activeAnimationSprite = self._sprites[7][2]
-                elif self.direction == Direction.DOWN: self.activeAnimationSprite = self._sprites[4][2]
-                elif self.direction == Direction.RIGHT: self.activeAnimationSprite = self._sprites[6][2]
-                elif self.direction == Direction.LEFT_UP: self.activeAnimationSprite = self._sprites[7][2]
-                elif self.direction == Direction.LEFT_DOWN: self.activeAnimationSprite = self._sprites[7][2]
-                elif self.direction == Direction.RIGHT_UP: self.activeAnimationSprite = self._sprites[6][2]
-                elif self.direction == Direction.RIGHT_DOWN: self.activeAnimationSprite = self._sprites[6][2]
-            elif self.animationFrame == 4:
-                if self.direction == Direction.UP: self.activeAnimationSprite = self._sprites[5][2]
-                elif self.direction == Direction.LEFT: self.activeAnimationSprite = self._sprites[7][2]
-                elif self.direction == Direction.DOWN: self.activeAnimationSprite = self._sprites[4][2]
-                elif self.direction == Direction.RIGHT: self.activeAnimationSprite = self._sprites[6][2]
-                elif self.direction == Direction.LEFT_UP: self.activeactiveAnimationSpriteSwingSprite = self._sprites[7][2]
-                elif self.direction == Direction.LEFT_DOWN: self.activeAnimationSprite = self._sprites[7][2]
-                elif self.direction == Direction.RIGHT_UP: self.activeAnimationSprite = self._sprites[6][2]
-                elif self.direction == Direction.RIGHT_DOWN: self.activeAnimationSprite = self._sprites[6][2]
-            if self.animationFrame == 5:
-                if not self.velX == 0 or not self.velY == 0:
-                    self.playerState = PlayerState.WALKING
-                else:
-                    self.playerState = PlayerState.IDLE
-                self.animationFrame = 0
-            if not self.animationFrame == 5:
-                if ticks - self.lastTick == 5:
-                    if ticks >= 115:
-                        self.lastTick = 5 - (120 - ticks)
-                    else:
-                        self.lastTick = ticks
-                    self.animationFrame += 1
+
+        # Animate player
+        self.animate(ticks)
 
     def render(self, scrollX, scrollY):
         # Render Collider on bottom
         #self.window.drawRect(self.collider.x - scrollX, self.collider.y - scrollY, self.collider.width, self.collider.height, 0, 0, 255)
 
         # Render Sprite
-        if self.playerState == PlayerState.IDLE:
-            if self.direction == Direction.UP:
-                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self._sprites[2][0])
-            elif self.direction == Direction.LEFT:
-                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self._sprites[3][0])
-            elif self.direction == Direction.DOWN:
-                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self._sprites[0][0])
-            elif self.direction == Direction.RIGHT:
-                self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self._sprites[1][0])
-        elif self.playerState == PlayerState.WALKING or self.playerState == PlayerState.ATTACKING:
-            self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.activeAnimationSprite)
+        self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.width, self.height, self.activeSprite)
 
         # Render Collider on top
         #self.window.drawRect(self.collider.x - scrollX, self.collider.y - scrollY, self.collider.width, self.collider.height, 0, 0, 255)
@@ -221,6 +116,185 @@ class Player():
         #self.window.drawRect(self.swordColliderLeft.x - scrollX, self.swordColliderLeft.y - scrollY, self.swordColliderLeft.width, self.swordColliderLeft.height, 0, 0, 255)
         #self.window.drawRect(self.swordColliderRight.x - scrollX, self.swordColliderRight.y - scrollY, self.swordColliderRight.width, self.swordColliderRight.height, 0, 0, 255)
     
+    # Check Animation
+    def animate(self, ticks):
+        if self.playerState == PlayerState.IDLE:
+            if self.direction == Direction.UP:
+                self.activeSprite = self._sprites[2][0]
+            elif self.direction == Direction.LEFT:
+                self.activeSprite = self._sprites[3][0]
+            elif self.direction == Direction.DOWN:
+                self.activeSprite = self._sprites[0][0]
+            elif self.direction == Direction.UP:
+                self.activeSprite = self._sprites[1][0]
+        if self.playerState == PlayerState.WALKING:
+            if self.animationFrame == 0:
+                self.lastTick = ticks
+                self.animationFrame += 1
+            elif self.animationFrame == 1:
+                if self.direction == Direction.UP: self.activeSprite = self._sprites[2][0]
+                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[3][0]
+                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[0][0]
+                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[1][0]
+                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[3][0]
+                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[3][0]
+                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[1][0]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[1][0]
+            elif self.animationFrame == 2:
+                if self.direction == Direction.UP: self.activeSprite = self._sprites[2][1]
+                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[3][1]
+                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[0][1]
+                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[1][1]
+                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[3][1]
+                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[3][1]
+                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[1][1]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[1][1]
+            elif self.animationFrame == 3:
+                if self.direction == Direction.UP: self.activeSprite = self._sprites[2][2]
+                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[3][2]
+                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[0][2]
+                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[1][2]
+                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[3][2]
+                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[3][2]
+                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[1][2]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[1][2]
+            elif self.animationFrame == 4:
+                if self.direction == Direction.UP: self.activeSprite = self._sprites[2][3]
+                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[3][3]
+                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[0][3]
+                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[1][3]
+                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[3][3]
+                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[3][3]
+                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[1][3]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[1][3]
+            if ticks - self.lastTick == 20:
+                if ticks >= 100:
+                    self.lastTick = 20 - (120 - ticks)
+                else:
+                    self.lastTick = ticks
+                self.animationFrame += 1
+            if self.animationFrame == 5:
+                self.animationFrame = 0
+        elif self.playerState == PlayerState.ATTACKING:
+            if self.animationFrame == 0:
+                self.lastTick = ticks
+                self.animationFrame += 1
+            if self.animationFrame == 1:
+                if self.direction == Direction.UP: self.activeSprite = self._sprites[5][0]
+                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[7][0]
+                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[4][0]
+                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[6][0]
+                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[7][0]
+                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[7][0]
+                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[6][0]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[6][0]
+            elif self.animationFrame == 2:
+                if self.direction == Direction.UP: self.activeSprite = self._sprites[5][1]
+                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[7][1]
+                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[4][1]
+                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[6][1]
+                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[7][1]
+                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[7][1]
+                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[6][1]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[6][1]
+            elif self.animationFrame == 3:
+                if self.direction == Direction.UP: self.activeSprite = self._sprites[5][2]
+                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[7][2]
+                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[4][2]
+                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[6][2]
+                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[7][2]
+                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[7][2]
+                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[6][2]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[6][2]
+            elif self.animationFrame == 4:
+                if self.direction == Direction.UP: self.activeSprite = self._sprites[5][2]
+                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[7][2]
+                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[4][2]
+                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[6][2]
+                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[7][2]
+                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[7][2]
+                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[6][2]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[6][2]
+            if self.animationFrame == 5:
+                if not self.velX == 0 or not self.velY == 0:
+                    self.playerState = PlayerState.WALKING
+                else:
+                    self.playerState = PlayerState.IDLE
+                self.animationFrame = 0
+            else:
+                if ticks - self.lastTick == 5:
+                    if ticks >= 115:
+                        self.lastTick = 5 - (120 - ticks)
+                    else:
+                        self.lastTick = ticks
+                    self.animationFrame += 1
+    
+    def move(self, isKeyDown, velX, velY):
+        if isKeyDown:
+            if velY == -1:
+                self.velY = -1
+                self.animationFrame = 0
+                if self.velX == -1: self.direction = Direction.LEFT_UP
+                elif self.velX == 1: self.direction = Direction.RIGHT_UP
+                else: self.direction = Direction.UP
+            if velX == -1:
+                self.velX = -1
+                self.animationFrame = 0
+                if self.velY == -1: self.player = Direction.LEFT_UP
+                elif self.velY == 1: self.player = Direction.LEFT_DOWN
+                else: self.direction = Direction.LEFT
+            if velY == 1:
+                self.velY = 1
+                self.animationFrame = 0
+                if self.velX == -1: self.direction = Direction.LEFT_DOWN
+                elif self.velX == 1: self.direction = Direction.RIGHT_DOWN
+                else: self.direction = Direction.DOWN
+            if velX == 1:
+                self.velX = 1
+                self.animationFrame = 0
+                if self.velY == -1: self.direction = Direction.RIGHT_UP
+                elif self.velY == 1: self.direction = Direction.RIGHT_DOWN
+                else: self.direction = Direction.RIGHT
+        else:
+            if velX == 1:
+                self.velX = 0
+                if self.velY == -1: self.direction = Direction.UP
+                elif self.velY == 1: self.direction = Direction.DOWN
+            if velY == 1:
+                self.velY = 0
+                if self.velX == -1: self.direction = Direction.LEFT
+                elif self.velX == 1: self.direction = Direction.RIGHT
+            self.animationFrame = 0
+    
+    # Attack
+    def attack(self, objectHandler):
+        self.animationFrame = 0
+        self.playerState = PlayerState.ATTACKING
+        if self.direction == Direction.UP:
+            collideObjects = objectHandler.getCollision(self.swordColliderTop)
+            if not collideObjects == []:
+                for tmpObject in collideObjects:
+                    if tmpObject.ID == 'Enemy':
+                        tmpObject.hit = True
+        elif self.direction == Direction.LEFT or self.direction == Direction.LEFT_DOWN or self.direction == Direction.LEFT_UP:
+            collideObjects = objectHandler.getCollision(self.swordColliderLeft)
+            if not collideObjects == []:
+                for tmpObject in collideObjects:
+                    if tmpObject.ID == 'Enemy':
+                        tmpObject.hit = True
+        elif self.direction == Direction.DOWN:
+            collideObjects = objectHandler.getCollision(self.swordColliderBottom)
+            if not collideObjects == []:
+                for tmpObject in collideObjects:
+                    if tmpObject.ID == 'Enemy':
+                        tmpObject.hit = True
+        elif self.direction == Direction.RIGHT or self.direction == Direction.RIGHT_DOWN or self.direction == Direction.RIGHT_UP:
+            collideObjects = objectHandler.getCollision(self.swordColliderRight)
+            if not collideObjects == []:
+                for tmpObject in collideObjects:
+                    if tmpObject.ID == 'Enemy':
+                        tmpObject.hit = True
+
     # Recieves detected collision
     def collide(self, collision):
         # Updates positions of side collisions

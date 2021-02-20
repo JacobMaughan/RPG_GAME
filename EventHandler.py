@@ -18,7 +18,7 @@ class EventHandler():
         # Setup state from event handler
         self.eventState = None
 
-        # Setup player instance
+        # Setup game state variables
         self.player = None
 
     def tick(self, ticks):
@@ -28,7 +28,7 @@ class EventHandler():
             if event.type == pygame.QUIT:
                 self.game.stop()
 
-            # Check for game state change and update state for event handler
+            # Check for game state change and set player insance if 
             if not self.eventState == self.game.state:
                 self.eventState = self.game.state
                 # If game state set player instance as player object
@@ -40,68 +40,19 @@ class EventHandler():
                 if event.type == pygame.KEYDOWN:
                     # Move up
                     if event.key == pygame.K_w:
-                        self.player.velY = -1
-                        # Set state and direction if needed
-                        if self.player.playerState == PlayerState.IDLE:
-                            self.player.playerState = PlayerState.WALKING
-                        if self.player.velX == -1: self.player.direction = Direction.LEFT_UP
-                        elif self.player.velX == 1: self.player.direction = Direction.RIGHT_UP
-                        else: self.player.direction = Direction.UP
+                        self.player.move(True, 0, -1)
                     # Move left
                     if event.key == pygame.K_a:
-                        self.player.velX = -1
-                        # Set state and direction if needed
-                        if self.player.playerState == PlayerState.IDLE:
-                            self.player.playerState = PlayerState.WALKING
-                        if self.player.velY == -1: self.player.direction = Direction.LEFT_UP
-                        elif self.player.velY == 1: self.player.direction = Direction.LEFT_DOWN
-                        else: self.player.direction = Direction.LEFT
+                        self.player.move(True, -1, 0)
                     # Move down
                     if event.key == pygame.K_s:
-                        self.player.velY = 1
-                        # Set state and direction if needed
-                        if self.player.playerState == PlayerState.IDLE:
-                            self.player.playerState = PlayerState.WALKING
-                        if self.player.velX == -1: self.player.direction = Direction.LEFT_DOWN
-                        elif self.player.velX == 1: self.player.direction = Direction.RIGHT_DOWN
-                        else: self.player.direction = Direction.DOWN
+                        self.player.move(True, 0, 1)
                     # Move right
                     if event.key == pygame.K_d:
-                        self.player.velX = 1
-                        # Set state and direction if needed
-                        if self.player.playerState == PlayerState.IDLE:
-                            self.player.playerState = PlayerState.WALKING
-                        if self.player.velY == -1: self.player.direction = Direction.RIGHT_UP
-                        elif self.player.velY == 1: self.player.direction = Direction.RIGHT_DOWN
-                        else: self.player.direction = Direction.RIGHT
+                        self.player.move(True, 1, 0)
                     # Attack
                     if event.key == pygame.K_r:
-                        self.player.animationFrame = 0
-                        self.player.playerState = PlayerState.ATTACKING
-                        if self.player.direction == Direction.UP:
-                            collideObjects = self.objectHandler.getCollision(self.player.swordColliderTop)
-                            if not collideObjects == []:
-                                for tmpObject in collideObjects:
-                                    if tmpObject.ID == 'Enemy':
-                                        tmpObject.hit = True
-                        elif self.player.direction == Direction.LEFT or self.player.direction == Direction.LEFT_DOWN or self.player.direction == Direction.LEFT_UP:
-                            collideObjects = self.objectHandler.getCollision(self.player.swordColliderLeft)
-                            if not collideObjects == []:
-                                for tmpObject in collideObjects:
-                                    if tmpObject.ID == 'Enemy':
-                                        tmpObject.hit = True
-                        elif self.player.direction == Direction.DOWN:
-                            collideObjects = self.objectHandler.getCollision(self.player.swordColliderBottom)
-                            if not collideObjects == []:
-                                for tmpObject in collideObjects:
-                                    if tmpObject.ID == 'Enemy':
-                                        tmpObject.hit = True
-                        elif self.player.direction == Direction.RIGHT or self.player.direction == Direction.RIGHT_DOWN or self.player.direction == Direction.RIGHT_UP:
-                            collideObjects = self.objectHandler.getCollision(self.player.swordColliderRight)
-                            if not collideObjects == []:
-                                for tmpObject in collideObjects:
-                                    if tmpObject.ID == 'Enemy':
-                                        tmpObject.hit = True
+                        self.player.attack(self.objectHandler)
                     
                     # Added for development purposes | Must remove
                     if event.key == pygame.K_LSHIFT:
@@ -109,18 +60,13 @@ class EventHandler():
 
                 # Check for key up
                 if event.type == pygame.KEYUP:
-                    # Check for vertical movement
+                    # Check for vertical movement and set direction if needed
                     if event.key == pygame.K_w or event.key == pygame.K_s:
-                        self.player.velY = 0
-                        # Set direction if needed
-                        if self.player.velX == -1: self.player.direction = Direction.LEFT
-                        elif self.player.velX == 1: self.player.direction = Direction.RIGHT
+                        self.player.move(False, 0, 1)
+                    
                     # Check for horizontal movement
                     if event.key == pygame.K_a or event.key == pygame.K_d:
-                        self.player.velX = 0
-                        # Set direction if needed
-                        if self.player.velY == -1: self.player.direction = Direction.UP
-                        elif self.player.velY == 1: self.player.direction = Direction.DOWN
+                        self.player.move(False, 1, 0)
                     
                     # Added for development purposes | Must remove
                     if event.key == pygame.K_LSHIFT:

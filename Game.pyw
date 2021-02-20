@@ -52,6 +52,11 @@ class Game():
         self.ticks += 1
         if self.ticks == self.tickSpeed: self.ticks = 0
 
+        # Check if state has changed and load objects if has
+        if not self.lastState == self.state:
+            self.lastState = self.state
+            self.loadObjects()
+
         # Tick handlers with tick counter as arg
         self.eventHandler.tick(self.ticks)
         self.objectHandler.tick(self.ticks)
@@ -73,7 +78,7 @@ class Game():
         elif self.state == GameState.GAME:
             self.objectHandler.clearObjects()
             self.mapHandler.loadMap('area_1')
-            self.objectHandler.addObject(Player(self.width / 2 - 16 * self.scaleFactor, self.height / 2 - 32 * self.scaleFactor, 16 * self.scaleFactor, 32 * self.scaleFactor, self.window))
+            self.objectHandler.addObject(Player(10 * 16 * self.scaleFactor, 10 * 16 * self.scaleFactor, 16 * self.scaleFactor, 32 * self.scaleFactor, self.window))
             self.objectHandler.addObject(TestBlock(10, 10, 100, 100, self.window))
         elif self.state == GameState.PAUSE:
             pass
@@ -83,10 +88,6 @@ class Game():
         lastTime = time.time()
         dt = 0
         while self._running:
-            # Check if state has changed and load objects if has
-            if not self.lastState == self.state:
-                self.lastState = self.state
-                self.loadObjects()
             # Update delta time
             dt += (time.time() - lastTime) * self.tickSpeed
             lastTime = time.time()

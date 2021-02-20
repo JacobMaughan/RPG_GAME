@@ -2,8 +2,8 @@
 # Author: Jacob Maughan
 
 # Sys Imports
-import json
 from os import path
+import json
 
 class JsonHandler():
     def __init__(self, file, mainLine=""):

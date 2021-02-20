@@ -9,8 +9,8 @@ import pygame
 
 # Local Imports
 from Enums import GameState
-from JsonHandler import JsonHandler
 from Window import Window
+from JsonHandler import JsonHandler
 from EventHandler import EventHandler
 from ObjectHandler import ObjectHandler
 from MapHandler import MapHandler
@@ -77,8 +77,8 @@ class Game():
         elif self.state == GameState.GAME:
             self.objectHandler.clearObjects()
             self.mapHandler.loadMap('area_1')
-            self.objectHandler.addObject(Player(10 * 16 * self.scaleFactor, 10 * 16 * self.scaleFactor, 16 * self.scaleFactor, 32 * self.scaleFactor, self.window))
-            self.objectHandler.addObject(TestBlock(10, 10, 100, 100, self.window))
+            self.objectHandler.addObject(Player(self.scaleFactor, self.window))
+            #self.objectHandler.addObject(TestBlock(10, 10, 100, 100, self.window))
         elif self.state == GameState.PAUSE:
             pass
 

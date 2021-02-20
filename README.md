@@ -11,5 +11,6 @@ Current features include (Nothing to be proud of):
 6. Settings file.
 7. Attacking
 8. Basic Interacting
+9. Multiple zones and zone triggers
 
 Run RPG_GAME.bat to run game.

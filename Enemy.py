@@ -1,10 +1,10 @@
-# Description: The tile object
+# Description: The enemy object
 # Author: Jacob Maughan
 
 # Lib Imports
 import pygame
 
-class Tile():
+class Enemy():
     def __init__(self, x, y, width, height, sprite, hasCollision, window):
         # Init
         self.x = x
@@ -14,7 +14,7 @@ class Tile():
         self.sprite = sprite
         self.hasCollision = hasCollision
         self.window = window
-        
+
         # Personalized
         self.ID = 'Tile'
 

@@ -25,6 +25,6 @@ class Window():
         self.screen.blit(image, (x, y))
     
     def drawText(self, x, y, text, size):
-        font = pygame.font.SysFont('./assets/fonts/BitScript.ttf', size)
+        font = pygame.font.SysFont('Arial Black', size)
         textImage = font.render(text, True, (0, 0, 0))
         self.screen.blit(textImage, (x, y))

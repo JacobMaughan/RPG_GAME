@@ -47,7 +47,7 @@ class MapHandler():
         mapToLoad = self.mapsData[mapFile]
         map = mapToLoad['map']
         signData = mapToLoad['signs']
-        self.objectHandler.setScrollClamp(len(map) * self.tileSize)
+        self.objectHandler.setScrollClamp(len(map[0]) * self.tileSize, len(map) * self.tileSize)
         for y in range(len(map)):
             for x in range(len(map[y])):
                 # Grass

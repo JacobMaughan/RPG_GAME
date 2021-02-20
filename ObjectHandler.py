@@ -84,6 +84,6 @@ class ObjectHandler():
                 returnObjects.append(tmpObject)
         return returnObjects
 
-    def setScrollClamp(self, scrollClamp):
-        self.scrollClampX = scrollClamp - self.game.width
-        self.scrollClampY = scrollClamp - self.game.height
+    def setScrollClamp(self, scrollClampX, scrollClampY):
+        self.scrollClampX = scrollClampX - self.game.width
+        self.scrollClampY = scrollClampY - self.game.height

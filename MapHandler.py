@@ -27,23 +27,10 @@ class MapHandler():
         # Creating spritesheet
         self.spriteSheet = SpriteSheet('./assets/art/overworld.png')
 
-        # Load Sprites into array
+        # Get sprite array
         # X - 40
         # Y - 36
-        self._sprites = [[]]
-        spriteY = 0
-        y = 0
-        while spriteY < 576:
-            spriteX = 0
-            x = 0
-            while x < 640:
-                self._sprites[y].append(self.spriteSheet.getImage(spriteX, spriteY, 16, 16))
-                self._sprites[y][x] = pygame.transform.scale(self._sprites[y][x], (self.tileSize, self.tileSize))
-                spriteX += 16
-                x += 1
-            self._sprites.append([])
-            spriteY += 16
-            y += 1
+        self._sprites = self.spriteSheet.getImageArray(16, 16, self.tileSize, self.tileSize)
     
     # Load selected map | Must be equal propotions for scroll clamp to work
     def loadMap(self, mapFile):

@@ -15,3 +15,23 @@ class SpriteSheet():
         image.blit(self.spriteSheet, (0, 0), (x, y, width, height))
         image.set_colorkey((0, 0, 0))
         return image
+    
+    # Get array of sprites from sprite sheet sprites[y][x]
+    def getImageArray(self, width, height, scaleWidth, scaleHeight):
+        sprites = [[]]
+        spriteY = 0
+        y = 0
+        while spriteY < self.spriteSheet.get_height():
+            spriteX = 0
+            x = 0
+            while spriteX < self.spriteSheet.get_width():
+                sprites[y].append(self.getImage(spriteX, spriteY, width, height))
+                sprites[y][x] = pygame.transform.scale(sprites[y][x], (scaleWidth, scaleHeight))
+                spriteX += width
+                x += 1
+            sprites.append([])
+            spriteY += height
+            y += 1
+        return sprites
+
+        

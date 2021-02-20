@@ -38,21 +38,8 @@ class Player():
         # Creating Spritesheet
         self.spriteSheet = SpriteSheet('./assets/art/character.png')
 
-        # Loading sprites into array
-        self._sprites = [[]]
-        spriteY = 0
-        y = 0
-        while spriteY < 256:
-            spriteX = 0
-            x = 0
-            while x < 272:
-                self._sprites[y].append(self.spriteSheet.getImage(spriteX, spriteY ,16, 32))
-                self._sprites[y][x] = pygame.transform.scale(self._sprites[y][x], (self.width, self.height))
-                spriteX += 16
-                x += 1
-            self._sprites.append([])
-            spriteY += 32
-            y += 1
+        # Load sprites into array
+        self._sprites = self.spriteSheet.getImageArray(16, 32, self.width, self.height)
 
         # Active sprites
         self.activeSprite = None

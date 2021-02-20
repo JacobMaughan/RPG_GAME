@@ -294,6 +294,10 @@ class Player():
                     else:
                         self.playerState = PlayerState.INTERACTING
                         tmpObject.textActive = True
+    
+    # Player Getting Hit
+    def hit(self, objectThatHit):
+        print('Hit')
 
     # Recieves detected collision
     def collide(self, collision):

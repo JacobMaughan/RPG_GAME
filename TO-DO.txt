@@ -1,3 +1,2 @@
-1. Add Enemys
-2. Add NPC's
-3. Add UI
+1. Add NPC's
+2. Add UI

@@ -44,10 +44,12 @@ class Enemy():
         self.animationFrame = 0
     
     def tick(self, ticks):
+        # Set Player if not player
         if self.player == None:
             self.player = self.objectHandler.getObjectByID('Player')
         
-        if math.sqrt((self.x - self.player.x) ** 2 + (self.y - self.player.y) ** 2) <= 3 * 16 * self.window.scaleFactor:
+        # Move Enemy if player in distance
+        if math.sqrt((self.x - self.player.x) ** 2 + (self.y - self.player.y) ** 2) <= 5 * 16 * self.window.scaleFactor:
             self.enemyState = EnemyState.WALKING
             self.velX = (self.player.x - self.x) / 100
             self.velY = (self.player.y - self.y) / 100
@@ -57,10 +59,17 @@ class Enemy():
             self.enemyState = EnemyState.IDLE
             self.animationFrame = 0
 
-        if self.velX < 0: self.direction = Direction.LEFT
-        elif self.velX > 0: self.direction = Direction.RIGHT
-        if self.velY < 0: self.direction = Direction.UP
-        elif self.velY > 0: self.direction = Direction.DOWN
+        # Attack player if in distance
+        if math.sqrt((self.x - self.player.x) ** 2 + (self.y - self.player.y) ** 2) <= 1 * 16 * self.window.scaleFactor:
+            self.player.hit(self)
+
+        # Set Direction To Moving
+        if abs(self.velX) > abs(self.velY):
+            if self.velX < 0: self.direction = Direction.LEFT
+            elif self.velX > 0: self.direction = Direction.RIGHT
+        elif abs(self.velY) > abs(self.velX):
+            if self.velY < 0: self.direction = Direction.UP
+            elif self.velY > 0: self.direction = Direction.DOWN
 
         self.x += self.velX
         self.y += self.velY

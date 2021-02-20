@@ -57,6 +57,14 @@ class EventHandler():
                     # Added for development purposes | Must remove
                     if event.key == pygame.K_LSHIFT:
                         self.player.speed = 4
+                    if event.key == pygame.K_LEFT:
+                        self.objectHandler.scrollX -= 1
+                    if event.key == pygame.K_RIGHT:
+                        self.objectHandler.scrollX += 1
+                    if event.key == pygame.K_UP:
+                        self.objectHandler.scrollY -= 1
+                    if event.key == pygame.K_DOWN:
+                        self.objectHandler.scrollY += 1
                     if event.key == pygame.K_m:
                         self.player.saveSettings()
                         print('Settings saved!')

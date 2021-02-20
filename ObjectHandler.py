@@ -19,6 +19,8 @@ class ObjectHandler():
         self.player = None
 
         # Setup screen scroll for camera movement
+        self.scrollClampX = 0
+        self.scrollClampY = 0
         self.scrollX = 0
         self.scrollY = 0
 
@@ -42,8 +44,13 @@ class ObjectHandler():
 
         # Scroll screen to player movement
         if self.objectState == GameState.GAME:
-            self.scrollX += (self.player.x - self.scrollX - ((self.game.width - self.player.width) / 2)) / 20
-            self.scrollY += (self.player.y - self.scrollY - ((self.game.height - self.player.height) / 2)) / 20
+            self.scrollX += (self.player.x - self.scrollX - ((self.game.width - self.player.width) / 2)) / 100
+            self.scrollY += (self.player.y - self.scrollY - ((self.game.height - self.player.height) / 2)) / 100
+
+            if self.scrollX < 0: self.scrollX = 0
+            if self.scrollX > self.scrollClampX: self.scrollX = self.scrollClampX
+            if self.scrollY < 0: self.scrollY = 0
+            if self.scrollY > self.scrollClampY: self.scrollY = self.scrollClampY
 
     def render(self):
         # Render all loaded objects
@@ -76,3 +83,7 @@ class ObjectHandler():
             if collider.colliderect(tmpObject.collider):
                 returnObjects.append(tmpObject)
         return returnObjects
+
+    def setScrollClamp(self, scrollClamp):
+        self.scrollClampX = scrollClamp - self.game.width
+        self.scrollClampY = scrollClamp - self.game.height

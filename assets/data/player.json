@@ -1,6 +1,7 @@
 {
     "x": 640,
     "y": 640,
+    "direction": 3,
     "speed": 1,
     "health": 100,
     "maxHealth": 100

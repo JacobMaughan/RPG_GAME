@@ -33,7 +33,7 @@ class Player():
 
         # State
         self.playerState = PlayerState.IDLE
-        self.direction = Direction.DOWN
+        self.direction = Direction(self.playerData['direction'])
         
         # Creating Spritesheet
         self.spriteSheet = SpriteSheet('./assets/art/character.png')
@@ -317,3 +317,12 @@ class Player():
             self.y = collision.y - self.collider.height - self.colliderOffsetY
         if(self.rightCollider.colliderect(collision.collider)):
             self.x = collision.x - self.collider.width - self.colliderOffsetX
+    
+    def saveSettings(self):
+        self.playerData['x'] = self.x
+        self.playerData['y'] = self.y
+        self.playerData['direction'] = self.direction.value
+        self.playerData['speed'] = self.speed
+        self.playerData['health'] = self.health
+        self.playerData['maxHealth'] = self.maxHealth
+        self.playerFile.saveJson(self.playerData)

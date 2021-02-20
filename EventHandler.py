@@ -57,6 +57,9 @@ class EventHandler():
                     # Added for development purposes | Must remove
                     if event.key == pygame.K_LSHIFT:
                         self.player.speed = 4
+                    if event.key == pygame.K_m:
+                        self.player.saveSettings()
+                        print('Settings saved!')
 
                 # Check for key up
                 if event.type == pygame.KEYUP:

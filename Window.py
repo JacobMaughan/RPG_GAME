@@ -24,7 +24,6 @@ class Window():
     def drawSprite(self, x, y, image):
         self.screen.blit(image, (x, y))
     
-    def drawText(self, x, y, text, size):
-        font = pygame.font.SysFont('Arial Black', size)
+    def drawText(self, x, y, text, font):
         textImage = font.render(text, True, (0, 0, 0))
         self.screen.blit(textImage, (x, y))

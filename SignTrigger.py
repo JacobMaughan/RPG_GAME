@@ -14,6 +14,8 @@ class SignTrigger():
         self.sprites = sprites
         self.window = window
 
+        self.font = pygame.font.SysFont('Arial Black', self.size)
+
         # Rescaling Sprites
         self.sprites[0] = pygame.transform.scale(self.sprites[0], (self.window.screen.get_width() - 16 * 4 * self.window.scaleFactor, 16 * 2 * self.window.scaleFactor))
         self.sprites[1] = pygame.transform.scale(self.sprites[1], (self.window.screen.get_width() - 16 * 4 * self.window.scaleFactor, self.sprites[1].get_height()))
@@ -47,5 +49,5 @@ class SignTrigger():
             self.window.drawSprite(self.window.screen.get_width() - 16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 2 * self.window.scaleFactor, self.sprites[6])
             self.window.drawSprite(self.window.screen.get_width() - 16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 4 * self.window.scaleFactor, self.sprites[7])
             self.window.drawSprite(self.window.screen.get_width() - 16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 5 * self.window.scaleFactor, self.sprites[8])
-            self.window.drawText(16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 4 * self.window.scaleFactor, self.text, self.size)
+            self.window.drawText(16 * 2 * self.window.scaleFactor, self.window.screen.get_height() - 16 * 4 * self.window.scaleFactor, self.text, self.font)
             

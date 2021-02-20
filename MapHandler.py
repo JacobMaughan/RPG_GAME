@@ -5,14 +5,19 @@
 import pygame
 
 # Local Imports
+from JsonHandler import JsonHandler
 from SpriteSheet import SpriteSheet
 from Tile import Tile
+from Sign import Sign
 
 class MapHandler():
     def __init__(self, scaleFactor, objectHandler, window):
         # Init
         self.objectHandler = objectHandler
         self.window = window
+
+        self.mapsFile = JsonHandler('./assets/data/maps.json')
+        self.mapsData = self.mapsFile.getJson()
 
         self.tileSize = 16 * scaleFactor
 
@@ -37,102 +42,107 @@ class MapHandler():
             spriteY += 16
             y += 1
     
-    # Load selected map
+    # Load selected map | Must be equal propotions for scroll clamp to work
     def loadMap(self, mapFile):
-        with open('./assets/maps/' + mapFile + '.mp', 'r') as file:
-            y = 0
-            for line in file:
-                for x in range(len(line)):
-                    # Grass
-                    if line[x] == 'S':
+        mapToLoad = self.mapsData[mapFile]
+        map = mapToLoad['map']
+        signData = mapToLoad['signs']
+        self.objectHandler.setScrollClamp(len(map) * self.tileSize)
+        for y in range(len(map)):
+            for x in range(len(map[y])):
+                # Grass
+                    if map[y][x] == 'S':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                     # Bushes Top
-                    elif line[x] == 'W':
+                    elif map[y][x] == 'W':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[19][5], True, self.window))
                     # Bushes Left
-                    elif line[x] == 'A':
+                    elif map[y][x] == 'A':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[18][7], True, self.window))
                     # Bushes Bottom
-                    elif line[x] == 'X':
+                    elif map[y][x] == 'X':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[18][5], True, self.window))
                     # Bushes Right
-                    elif line[x] == 'D':
+                    elif map[y][x] == 'D':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[18][6], True, self.window))
                     # Bushes Left Top
-                    elif line[x] == 'Q':
+                    elif map[y][x] == 'Q':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[19][4], True, self.window))
                     # Bushes Left Bottom
-                    elif line[x] == 'Z':
+                    elif map[y][x] == 'Z':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[16][4], True, self.window))
                     # Bushes Right Bottom
-                    elif line[x] == 'C':
+                    elif map[y][x] == 'C':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[16][3], True, self.window))
                     # Bushes Right Top
-                    elif line[x] == 'E':
+                    elif map[y][x] == 'E':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[19][3], True, self.window))
                     # Bushes Closed Left Top
-                    elif line[x] == 'U':
+                    elif map[y][x] == 'U':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[16][5], True, self.window))
                     # Bushes Closed Left Bottom
-                    elif line[x] == 'J':
+                    elif map[y][x] == 'J':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[17][5], True, self.window))
                     # Bushes Closed Right Bottom
-                    elif line[x] == 'K':
+                    elif map[y][x] == 'K':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[17][6], True, self.window))
                     # Bushed Closed Right Top
-                    elif line[x] == 'I':
+                    elif map[y][x] == 'I':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[16][6], True, self.window))
                     # Road
-                    elif line[x] == 'G':
+                    elif map[y][x] == 'G':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[30][1], False, self.window))
                     # Road Top
-                    elif line[x] == 'T':
+                    elif map[y][x] == 'T':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[29][1], False, self.window))
                     # Road Left
-                    elif line[x] == 'F':
+                    elif map[y][x] == 'F':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[30][0], False, self.window))
                     # Road Bottom    
-                    elif line[x] == 'B':
+                    elif map[y][x] == 'B':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[31][1], False, self.window))
                     # Road Right  
-                    elif line[x] == 'H':
+                    elif map[y][x] == 'H':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[30][2], False, self.window))
                     # Road Left Top
-                    elif line[x] == 'R':
+                    elif map[y][x] == 'R':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[29][0], False, self.window))
                     # Road Left Bottom   
-                    elif line[x] == 'V':
+                    elif map[y][x] == 'V':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[31][0], False, self.window))
                     # Road Right Bottom
-                    elif line[x] == 'N':
+                    elif map[y][x] == 'N':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[31][2], False, self.window))
                     # Road Right Top
-                    elif line[x] == 'Y':
+                    elif map[y][x] == 'Y':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[29][2], False, self.window))
                     # Road Corner Left Top
-                    elif line[x] == 'O':
+                    elif map[y][x] == 'O':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[32][0], False, self.window))
                     # Road Corner Left Bottom
-                    elif line[x] == 'L':
+                    elif map[y][x] == 'L':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[33][0], False, self.window))
                     # Road Corner Right Bottom
-                    elif line[x] == ':':
+                    elif map[y][x] == ':':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[33][1], False, self.window))
                     # Road Corner Right Top
-                    elif line[x] == 'P':
+                    elif map[y][x] == 'P':
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[32][1], False, self.window))
-                y += 1
-            # Set scroll clamp
-            self.objectHandler.setScrollClamp(y * self.tileSize)
+                    # Sign
+                    elif map[y][x] == '1':
+                        self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
+                        self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[2][35], True, self.window))
+        for i in range(len(signData)):
+            self.objectHandler.addObject(Sign(signData[i]['x'], signData[i]['y'], signData[i]['text'], self.window))

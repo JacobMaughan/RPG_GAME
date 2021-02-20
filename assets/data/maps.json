@@ -1,0 +1,33 @@
+{
+    "area_1": {
+        "map": [
+            "QWWWWWWKFGGHJWWWWWWE",
+            "ASSSSSS1FGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "KSSSSSSSFGGHSSSSSSSD",
+            "TTTTTTTT:GGHSSSSSSSD",
+            "GGGGGGGGGGGHSSSSSSSD",
+            "GGGGGGGGGGGHSSSSSSSD",
+            "BBBBBBBBBBBNSSSSSSSD",
+            "ISSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ZXXXXXXXXXXXXXXXXXXC"
+        ],
+        "signs": [
+            {
+                "x": 448,
+                "y": 64,
+                "text": "Welcome to RPG_GAME"
+            }
+        ]
+    }
+}

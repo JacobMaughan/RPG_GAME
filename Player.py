@@ -57,14 +57,16 @@ class Player():
         # Active sprites
         self.activeSprite = None
 
-        # Collision | Must set offsets for main collider
+        # Collision | Must set offsets and width/height  for colliders
         self.colliderOffsetX = 20
         self.colliderOffsetY = 90
+        self.colliderWidth = 25
+        self.colliderHeight = 10
 
         self.swordColliderOffsetX = [0, -5, 0, 45]
         self.swordColliderOffsetY = [25, 50, 90, 50]
 
-        self.collider = pygame.Rect(self.x + self.colliderOffsetX, self.y + self.colliderOffsetY, 25, 10)
+        self.collider = pygame.Rect(self.x + self.colliderOffsetX, self.y + self.colliderOffsetY, self.colliderWidth, self.colliderHeight)
         self.topCollider = pygame.Rect(self.collider.x + self.collider.width * 0.1, self.collider.y, self.collider.width * 0.8, self.collider.height * 0.1)
         self.leftCollider = pygame.Rect(self.collider.x, self.collider.y + self.collider.height * 0.1, self.collider.width * 0.1, self.collider.height * 0.8)
         self.bottomCollider = pygame.Rect(self.collider.x + self.collider.width * 0.1, self.collider.y + self.collider.height * 0.9, self.collider.width * 0.8, self.collider.height * 0.1)
@@ -293,6 +295,20 @@ class Player():
                 for tmpObject in collideObjects:
                     if tmpObject.ID == 'Enemy':
                         tmpObject.hit = True
+    
+    # Interact
+    def interact(self, objectHandler):
+        collideObjects = objectHandler.getCollision(self.collider)
+        if not collideObjects == []:
+            for tmpObject in collideObjects:
+                if tmpObject.ID == 'Sign':
+                    if self.playerState == PlayerState.INTERACTING:
+                        self.playerState = PlayerState.IDLE
+                        print('stopped interacted')
+                    else:
+                        self.playerState = PlayerState.INTERACTING
+                        tmpObject.textActive = True
+                        print('interacted')
 
     # Recieves detected collision
     def collide(self, collision):

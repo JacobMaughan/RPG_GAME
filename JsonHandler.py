@@ -6,15 +6,9 @@ from os import path
 import json
 
 class JsonHandler():
-    def __init__(self, file, mainLine=""):
+    def __init__(self, file):
         # Init | Creates file if needed
         self.file = file
-        if not path.exists(self.file):
-            data = {}
-            if not mainLine == "":
-                data[mainLine] = []
-            with open(self.dataFile, 'w') as tmpFile:
-                json.dump(data, tmpFile, indent=4)
     
     # Get the data from json file
     def getJson(self):

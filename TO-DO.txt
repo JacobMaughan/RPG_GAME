@@ -1,0 +1,5 @@
+1. Add showing text when interacting with sign
+2. Add Enemys
+3. Add NPC's
+4. Add New Zones and Zone Triggers
+5. Add UI

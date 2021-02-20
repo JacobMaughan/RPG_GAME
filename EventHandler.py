@@ -51,8 +51,11 @@ class EventHandler():
                     if event.key == pygame.K_d:
                         self.player.move(True, 1, 0)
                     # Attack
-                    if event.key == pygame.K_r:
+                    if event.key == pygame.K_SPACE:
                         self.player.attack(self.objectHandler)
+                    # Interact
+                    if event.key == pygame.K_e:
+                        self.player.interact(self.objectHandler)
                     
                     # Added for development purposes | Must remove
                     if event.key == pygame.K_LSHIFT:

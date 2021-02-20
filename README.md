@@ -2,7 +2,7 @@
 
 A simple W.I.P game using pygame library and https://opengameart.org/content/zelda-like-tilesets-and-sprites tileset
 
-Current features include (Nothing to be pround of):
+Current features include (Nothing to be proud of):
     1. Normal Movement
     2. Scrolling Camera
     3. Clamping Camera

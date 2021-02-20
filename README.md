@@ -7,10 +7,10 @@ Current features include (Nothing to be proud of):
 2. Scrolling Camera
 3. Clamping Camera
 4. Basic Saving and Loading
-5. Map loading from Json files.
-6. Settings file.
+5. Map loading from Json files
+6. Settings file
 7. Attacking
-8. Basic Interacting
+8. Sign Interaction
 9. Multiple zones and zone triggers
 
 Run RPG_GAME.bat to run game.

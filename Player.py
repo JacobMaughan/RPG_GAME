@@ -125,22 +125,13 @@ class Player():
                 self.activeSprite = self._sprites[3][0]
             elif self.direction == Direction.DOWN:
                 self.activeSprite = self._sprites[0][0]
-            elif self.direction == Direction.UP:
+            elif self.direction == Direction.RIGHT:
                 self.activeSprite = self._sprites[1][0]
         if self.playerState == PlayerState.WALKING:
             if self.animationFrame == 0:
                 self.lastTick = ticks
                 self.animationFrame += 1
-            elif self.animationFrame == 1:
-                if self.direction == Direction.UP: self.activeSprite = self._sprites[2][0]
-                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[3][0]
-                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[0][0]
-                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[1][0]
-                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[3][0]
-                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[3][0]
-                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[1][0]
-                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[1][0]
-            elif self.animationFrame == 2:
+            if self.animationFrame == 1:
                 if self.direction == Direction.UP: self.activeSprite = self._sprites[2][1]
                 elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[3][1]
                 elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[0][1]
@@ -149,7 +140,7 @@ class Player():
                 elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[3][1]
                 elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[1][1]
                 elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[1][1]
-            elif self.animationFrame == 3:
+            elif self.animationFrame == 2:
                 if self.direction == Direction.UP: self.activeSprite = self._sprites[2][2]
                 elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[3][2]
                 elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[0][2]
@@ -158,7 +149,7 @@ class Player():
                 elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[3][2]
                 elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[1][2]
                 elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[1][2]
-            elif self.animationFrame == 4:
+            elif self.animationFrame == 3:
                 if self.direction == Direction.UP: self.activeSprite = self._sprites[2][3]
                 elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[3][3]
                 elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[0][3]
@@ -167,11 +158,17 @@ class Player():
                 elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[3][3]
                 elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[1][3]
                 elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[1][3]
+            elif self.animationFrame == 4:
+                if self.direction == Direction.UP: self.activeSprite = self._sprites[2][0]
+                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[3][0]
+                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[0][0]
+                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[1][0]
+                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[3][0]
+                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[3][0]
+                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[1][0]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[1][0]
             if ticks - self.lastTick == 20:
-                if ticks >= 100:
-                    self.lastTick = 20 - (120 - ticks)
-                else:
-                    self.lastTick = ticks
+                self.lastTick = ticks
                 self.animationFrame += 1
             if self.animationFrame == 5:
                 self.animationFrame = 0
@@ -207,14 +204,14 @@ class Player():
                 elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[6][2]
                 elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[6][2]
             elif self.animationFrame == 4:
-                if self.direction == Direction.UP: self.activeSprite = self._sprites[5][2]
-                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[7][2]
-                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[4][2]
-                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[6][2]
-                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[7][2]
-                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[7][2]
-                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[6][2]
-                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[6][2]
+                if self.direction == Direction.UP: self.activeSprite = self._sprites[5][3]
+                elif self.direction == Direction.LEFT: self.activeSprite = self._sprites[7][3]
+                elif self.direction == Direction.DOWN: self.activeSprite = self._sprites[4][3]
+                elif self.direction == Direction.RIGHT: self.activeSprite = self._sprites[6][3]
+                elif self.direction == Direction.LEFT_UP: self.activeSprite = self._sprites[7][3]
+                elif self.direction == Direction.LEFT_DOWN: self.activeSprite = self._sprites[7][3]
+                elif self.direction == Direction.RIGHT_UP: self.activeSprite = self._sprites[6][3]
+                elif self.direction == Direction.RIGHT_DOWN: self.activeSprite = self._sprites[6][3]
             if self.animationFrame == 5:
                 if not self.velX == 0 or not self.velY == 0:
                     self.playerState = PlayerState.WALKING
@@ -223,10 +220,7 @@ class Player():
                 self.animationFrame = 0
             else:
                 if ticks - self.lastTick == 5:
-                    if ticks >= 115:
-                        self.lastTick = 5 - (120 - ticks)
-                    else:
-                        self.lastTick = ticks
+                    self.lastTick = ticks
                     self.animationFrame += 1
     
     def move(self, isKeyDown, velX, velY):

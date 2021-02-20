@@ -50,7 +50,6 @@ class Game():
     def tick(self):
         # Setup tick counter | If tick count hit tickSpeed,  1 second has elapsed and set ticks to 0
         self.ticks += 1
-        if self.ticks == self.tickSpeed: self.ticks = 0
 
         # Check if state has changed and load objects if has
         if not self.lastState == self.state:

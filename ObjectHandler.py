@@ -41,6 +41,9 @@ class ObjectHandler():
                     if tmpObject.hasCollision:
                         if self.player.collider.colliderect(tmpObject.collider):
                             self.player.collide(tmpObject)
+                elif tmpObject.ID == 'NewZoneTrigger':
+                    if self.player.collider.colliderect(tmpObject.collider):
+                        tmpObject.loadNewZone()
 
         # Scroll screen to player movement
         if self.objectState == GameState.GAME:
@@ -63,7 +66,7 @@ class ObjectHandler():
     
     # Remove objects
     def removeObject(self, objectToRemove):
-        for i in range(len(self._objects)):
+        for i in range(len(self._objects) - 1):
             if self._objects[i] == objectToRemove:
                 self._objects.pop(i)
     

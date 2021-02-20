@@ -7,17 +7,16 @@ import pygame
 # Local Imports
 from Enums import Direction
 from Enums import PlayerState
-from JsonHandler import JsonHandler
 from SpriteSheet import SpriteSheet
 
 class Player():
-    def __init__(self, scaleFactor, window):
+    def __init__(self, playerFile, scaleFactor, window):
         # Init
         self.scaleFactor = scaleFactor
         self.window = window
 
         # Personalized
-        self.playerFile = JsonHandler('./assets/data/player.json')
+        self.playerFile = playerFile
         self.playerData = self.playerFile.getJson()
 
         self.ID = 'Player'
@@ -25,6 +24,7 @@ class Player():
         self.height = 32 * self.scaleFactor
         self.velX = 0
         self.velY = 0
+        self.map = self.playerData['map']
         self.x = self.playerData['x']
         self.y = self.playerData['y']
         self.speed = self.playerData['speed']
@@ -335,6 +335,7 @@ class Player():
             self.x = collision.x - self.collider.width - self.colliderOffsetX
     
     def saveSettings(self):
+        self.playerData['map'] = self.map
         self.playerData['x'] = self.x
         self.playerData['y'] = self.y
         self.playerData['direction'] = self.direction.value

@@ -25,6 +25,8 @@ class Game():
         # Load settings
         self.settingsFile = JsonHandler('./assets/data/settings.json')
         self.settingsData = self.settingsFile.getJson()
+        self.playerFile = JsonHandler('./assets/data/player.json')
+        self.playerData = self.playerFile.getJson()
 
         # Set width and height from settings
         self.width = self.settingsData['width']
@@ -76,8 +78,8 @@ class Game():
             self.objectHandler.clearObjects()
         elif self.state == GameState.GAME:
             self.objectHandler.clearObjects()
-            self.mapHandler.loadMap('area_1')
-            self.objectHandler.addObject(Player(self.scaleFactor, self.window))
+            self.mapHandler.loadMap(self.playerData['map'])
+            self.objectHandler.addObject(Player(self.playerFile, self.scaleFactor, self.window))
             #self.objectHandler.addObject(TestBlock(10, 10, 100, 100, self.window))
         elif self.state == GameState.PAUSE:
             pass

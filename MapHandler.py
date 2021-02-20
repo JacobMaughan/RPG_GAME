@@ -5,14 +5,17 @@
 import pygame
 
 # Local Imports
+from Enums import Direction
 from JsonHandler import JsonHandler
 from SpriteSheet import SpriteSheet
+from SignTrigger import SignTrigger
+from ZoneTrigger import ZoneTrigger
 from Tile import Tile
-from Sign import Sign
 
 class MapHandler():
     def __init__(self, scaleFactor, objectHandler, window):
         # Init
+        self.scaleFactor = scaleFactor
         self.objectHandler = objectHandler
         self.window = window
 
@@ -47,6 +50,7 @@ class MapHandler():
         mapToLoad = self.mapsData[mapFile]
         map = mapToLoad['map']
         signData = mapToLoad['signs']
+        newZoneData = mapToLoad['newZoneTriggers']
         self.objectHandler.setScrollClamp(len(map[0]) * self.tileSize, len(map) * self.tileSize)
         for y in range(len(map)):
             for x in range(len(map[y])):
@@ -145,4 +149,6 @@ class MapHandler():
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[0][0], False, self.window))
                         self.objectHandler.addObject(Tile(x * self.tileSize, y * self.tileSize, self.tileSize, self.tileSize, self._sprites[2][35], True, self.window))
         for i in range(len(signData)):
-            self.objectHandler.addObject(Sign(signData[i]['x'], signData[i]['y'], signData[i]['text'], self.window))
+            self.objectHandler.addObject(SignTrigger(signData[i]['x'], signData[i]['y'], signData[i]['text'], self.window))
+        for i in range(len(newZoneData)):
+            self.objectHandler.addObject(ZoneTrigger(newZoneData[i]['x'], newZoneData[i]['y'], newZoneData[i]['size'], Direction(newZoneData[i]['direction']), newZoneData[i]['newZone'], newZoneData[i]['newX'], newZoneData[i]['newY'], self.scaleFactor, self, self.objectHandler, self.window))

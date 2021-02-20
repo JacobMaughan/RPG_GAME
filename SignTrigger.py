@@ -1,10 +1,10 @@
-# Description: The sign loader object
+# Description: The sign trigger object
 # Author: Jacob Maughan
 
 # Lib Imports
 import pygame
 
-class Sign():
+class SignTrigger():
     def __init__(self, x, y, text, window):
         # Init
         self.x = x

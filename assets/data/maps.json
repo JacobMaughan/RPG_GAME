@@ -28,6 +28,53 @@
                 "y": 64,
                 "text": "Welcome to RPG_GAME"
             }
+        ],
+        "newZoneTriggers": [
+            {
+                "x": 0,
+                "y": 704,
+                "size": 2,
+                "direction": 2,
+                "newZone": "area_2",
+                "newX": 1280,
+                "newY": 704
+            }
+        ]
+    },
+    "area_2": {
+        "map": [
+            "QWWWWWWKFGGHJWWWWWWE",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "KSSSSSSSFGGHSSSSSSSJ",
+            "TTTTTTTT:GGLTTTTTTTT",
+            "GGGGGGGGGGGGGGGGGGGG",
+            "GGGGGGGGGGGGGGGGGGGG",
+            "BBBBBBBBBBBBBBBBBBBB",
+            "ISSSSSSSSSSSSSSSSSSU",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ZXXXXXXXXXXXXXXXXXXC"
+        ],
+        "signs": [],
+        "newZoneTriggers": [
+            {
+                "x": 1280,
+                "y": 704,
+                "size": 2,
+                "direction": 4,
+                "newZone": "area_1",
+                "newX": 0,
+                "newY": 704
+            }
         ]
     }
 }

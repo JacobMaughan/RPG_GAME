@@ -10,12 +10,12 @@
             "ASSSSSSSFGGHSSSSSSSD",
             "ASSSSSSSFGGHSSSSSSSD",
             "ASSSSSSSFGGHSSSSSSSD",
-            "KSSSSSSSFGGHSSSSSSSD",
-            "TTTTTTTT:GGHSSSSSSSD",
-            "GGGGGGGGGGGHSSSSSSSD",
-            "GGGGGGGGGGGHSSSSSSSD",
-            "BBBBBBBBBBBNSSSSSSSD",
-            "ISSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSVBBNSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
             "ASSSSSSSSSSSSSSSSSSD",
             "ASSSSSSSSSSSSSSSSSSD",
             "ASSSSSSSSSSSSSSSSSSD",
@@ -32,22 +32,16 @@
         ],
         "newZoneTriggers": [
             {
-                "x": 0,
-                "y": 704,
-                "size": 2,
-                "direction": 2,
+                "x": 512,
+                "y": 0,
+                "size": 4,
+                "direction": 1,
                 "newZone": "area_2",
-                "newX": 1280,
-                "newY": 704
+                "newX": 608,
+                "newY": 1152
             }
         ],
-        "enemys": [
-            {
-                "x": 100,
-                "y": 100,
-                "direction": 3
-            }
-        ]
+        "enemys": []
     },
     "area_2": {
         "map": [
@@ -60,12 +54,120 @@
             "ASSSSSSSFGGHSSSSSSSD",
             "ASSSSSSSFGGHSSSSSSSD",
             "ASSSSSSSFGGHSSSSSSSD",
-            "KSSSSSSSFGGHSSSSSSSJ",
-            "TTTTTTTT:GGLTTTTTTTT",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ZXXXXXXIFGGHUXXXXXXC"
+        ],
+        "signs": [],
+        "newZoneTriggers": [
+            {
+                "x": 512,
+                "y": 1280,
+                "size": 4,
+                "direction": 3,
+                "newZone": "area_1",
+                "newX": 608,
+                "newY": 0
+            },
+            {
+                "x": 512,
+                "y": 0,
+                "size": 4,
+                "direction": 1,
+                "newZone": "area_3",
+                "newX": 608,
+                "newY": 1152
+            }
+        ],
+        "enemys": []
+    },
+    "area_3": {
+        "map": [
+            "QWWWWWWWWWWWWWWWWWWE",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "KSSSSSSSSSSSSSSSSSSJ",
+            "TTTTTTTTTTTTTTTTTTTT",
             "GGGGGGGGGGGGGGGGGGGG",
             "GGGGGGGGGGGGGGGGGGGG",
-            "BBBBBBBBBBBBBBBBBBBB",
-            "ISSSSSSSSSSSSSSSSSSU",
+            "BBBBBBBBPGGOBBBBBBBB",
+            "ISSSSSS1FGGHSSSSSSSU",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ASSSSSSSFGGHSSSSSSSD",
+            "ZXXXXXXIFGGHUXXXXXXC"
+        ],
+        "signs": [
+            {
+                "x": 448,
+                "y": 768,
+                "text": "Left: Attack 'R' | Right: Attackkkk!",
+                "size": 15
+            }
+        ],
+        "newZoneTriggers": [
+            {
+                "x": 512,
+                "y": 1280,
+                "size": 4,
+                "direction": 3,
+                "newZone": "area_2",
+                "newX": 608,
+                "newY": 0
+            },
+            {
+                "x": 0,
+                "y": 512,
+                "size": 4,
+                "direction": 2,
+                "newZone": "area_4",
+                "newX": 1152,
+                "newY": 544
+            },
+            {
+                "x": 1280,
+                "y": 512,
+                "size": 4,
+                "direction": 4,
+                "newZone": "area_5",
+                "newX": 0,
+                "newY": 544
+            }
+        ],
+        "enemys": []
+    },
+    "area_4": {
+        "map": [
+            "QWWWWWWWWWWWWWWWWWWE",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSJ",
+            "ASSSSSSSRTTTTTTTTTTT",
+            "ASSSSSSSFGGGGGGGGGGG",
+            "ASSSSSSSFGGGGGGGGGGG",
+            "ASSSSSSSVBBBBBBBBBBB",
+            "ASSSSSSSSSSSSSSSSSSU",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
             "ASSSSSSSSSSSSSSSSSSD",
             "ASSSSSSSSSSSSSSSSSSD",
             "ASSSSSSSSSSSSSSSSSSD",
@@ -76,14 +178,103 @@
         "newZoneTriggers": [
             {
                 "x": 1280,
-                "y": 704,
-                "size": 2,
+                "y": 512,
+                "size": 4,
                 "direction": 4,
-                "newZone": "area_1",
+                "newZone": "area_3",
                 "newX": 0,
-                "newY": 704
+                "newY": 608
             }
         ],
-        "enemys": []
+        "enemys": [
+            {
+                "x": 544,
+                "y": 544,
+                "direction": 3
+            }
+        ]
+    },
+    "area_5": {
+        "map": [
+            "QWWWWWWWWWWWWWWWWWWE",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "KSSSSSSSSSSSSSSSSSSD",
+            "TTTTTTTTTTTYSSSSSSSD",
+            "GGGGGGGGGGGHSSSSSSSD",
+            "GGGGGGGGGGGHSSSSSSSD",
+            "VVVVVVVVVVVNSSSSSSSD",
+            "ISSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ASSSSSSSSSSSSSSSSSSD",
+            "ZXXXXXXXXXXXXXXXXXXC"
+        ],
+        "signs": [],
+        "newZoneTriggers": [
+            {
+                "x": 0,
+                "y": 512,
+                "size": 4,
+                "direction": 2,
+                "newZone": "area_3",
+                "newX": 1152,
+                "newY": 608
+            }
+        ],
+        "enemys": [
+            {
+                "x": 500,
+                "y": 500,
+                "direction": 3
+            },
+            {
+                "x": 500,
+                "y": 564,
+                "direction": 3
+            },
+            {
+                "x": 500,
+                "y": 628,
+                "direction": 3
+            },
+            {
+                "x": 564,
+                "y": 500,
+                "direction": 3
+            },
+            {
+                "x": 564,
+                "y": 564,
+                "direction": 3
+            },
+            {
+                "x": 564,
+                "y": 628,
+                "direction": 3
+            },
+            {
+                "x": 628,
+                "y": 500,
+                "direction": 3
+            },
+            {
+                "x": 628,
+                "y": 564,
+                "direction": 3
+            },
+            {
+                "x": 628,
+                "y": 628,
+                "direction": 3
+            }
+        ]
     }
 }

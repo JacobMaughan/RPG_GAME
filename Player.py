@@ -62,9 +62,15 @@ class Player():
         self.swordColliderLeft = pygame.Rect(self.x + self.swordColliderOffsetX[1], self.y + self.swordColliderOffsetY[1], 30, 50)
         self.swordColliderBottom = pygame.Rect(self.x + self.swordColliderOffsetX[2], self.y + self.swordColliderOffsetY[2], self.width, 30)
         self.swordColliderRight = pygame.Rect(self.x + self.swordColliderOffsetX[3], self.y + self.swordColliderOffsetY[3], 30, 50)
-
+        
+        # Animation Setup
         self.lastTick = 0
         self.animationFrame = 0
+
+        # Knockback Setup
+        self.knockLastTick = 0
+        self.knockTicks = 0
+        self.knockBack = False
 
     def tick(self, ticks):
         # Check if moving and set player state
@@ -94,6 +100,10 @@ class Player():
 
         # Animate player
         self.animate(ticks)
+
+        # Knockback if neeeded
+        if self.knockBack:
+            self.knockback(ticks)
 
     def render(self, scrollX, scrollY):
         # Render Collider on bottom
@@ -253,6 +263,42 @@ class Player():
                 elif self.velX == 1: self.direction = Direction.RIGHT
             self.animationFrame = 0
     
+    def knockback(self, ticks):
+        if self.knockTicks == 0:
+            self.knockLastTick = ticks
+            self.knockTicks += 1
+        if self.knockTicks == 1:
+            if self.direction == Direction.UP: self.y += 2
+            elif self.direction == Direction.LEFT or self.direction == Direction.LEFT_DOWN or self.direction == Direction.LEFT_UP: self.x += 2
+            elif self.direction == Direction.DOWN: self.y -= 2
+            elif self.direction == Direction.RIGHT or self.direction == Direction.RIGHT_DOWN or self.direction == Direction.RIGHT_UP: self.x -= 2
+        if self.knockTicks == 2:
+            if self.direction == Direction.UP: self.y += 2
+            elif self.direction == Direction.LEFT or self.direction == Direction.LEFT_DOWN or self.direction == Direction.LEFT_UP: self.x += 2
+            elif self.direction == Direction.DOWN: self.y -= 2
+            elif self.direction == Direction.RIGHT or self.direction == Direction.RIGHT_DOWN or self.direction == Direction.RIGHT_UP: self.x -= 2
+        if self.knockTicks == 3:
+            if self.direction == Direction.UP: self.y += 2
+            elif self.direction == Direction.LEFT or self.direction == Direction.LEFT_DOWN or self.direction == Direction.LEFT_UP: self.x += 2
+            elif self.direction == Direction.DOWN: self.y -= 2
+            elif self.direction == Direction.RIGHT or self.direction == Direction.RIGHT_DOWN or self.direction == Direction.RIGHT_UP: self.x -= 2
+        if self.knockTicks == 4:
+            if self.direction == Direction.UP: self.y += 2
+            elif self.direction == Direction.LEFT or self.direction == Direction.LEFT_DOWN or self.direction == Direction.LEFT_UP: self.x += 2
+            elif self.direction == Direction.DOWN: self.y -= 2
+            elif self.direction == Direction.RIGHT or self.direction == Direction.RIGHT_DOWN or self.direction == Direction.RIGHT_UP: self.x -= 2
+        if self.knockTicks == 5:
+                if not self.velX == 0 or not self.velY == 0:
+                    self.playerState = PlayerState.WALKING
+                else:
+                    self.playerState = PlayerState.IDLE
+                self.knockTicks = 0
+                self.knockBack = False
+        else:
+            if ticks - self.knockLastTick == 5:
+                self.knockLastTick = ticks
+                self.knockTicks += 1
+    
     # Attack
     def attack(self, objectHandler):
         self.animationFrame = 0
@@ -262,25 +308,25 @@ class Player():
             if not collideObjects == []:
                 for tmpObject in collideObjects:
                     if tmpObject.ID == 'Enemy':
-                        tmpObject.hit = True
+                        objectHandler.removeObject(tmpObject)
         elif self.direction == Direction.LEFT or self.direction == Direction.LEFT_DOWN or self.direction == Direction.LEFT_UP:
             collideObjects = objectHandler.getCollision(self.swordColliderLeft)
             if not collideObjects == []:
                 for tmpObject in collideObjects:
                     if tmpObject.ID == 'Enemy':
-                        tmpObject.hit = True
+                        objectHandler.removeObject(tmpObject)
         elif self.direction == Direction.DOWN:
             collideObjects = objectHandler.getCollision(self.swordColliderBottom)
             if not collideObjects == []:
                 for tmpObject in collideObjects:
                     if tmpObject.ID == 'Enemy':
-                        tmpObject.hit = True
+                        objectHandler.removeObject(tmpObject)
         elif self.direction == Direction.RIGHT or self.direction == Direction.RIGHT_DOWN or self.direction == Direction.RIGHT_UP:
             collideObjects = objectHandler.getCollision(self.swordColliderRight)
             if not collideObjects == []:
                 for tmpObject in collideObjects:
                     if tmpObject.ID == 'Enemy':
-                        tmpObject.hit = True
+                        objectHandler.removeObject(tmpObject)
     
     # Interact
     def interact(self, objectHandler):
@@ -296,8 +342,10 @@ class Player():
                         tmpObject.textActive = True
     
     # Player Getting Hit
-    def hit(self, objectThatHit):
-        print('Hit')
+    def hit(self, objectThatHit, ticks):
+        self.health -= 10
+        self.knockBack = True
+        self.playerState = PlayerState.KNOCKED
 
     # Recieves detected collision
     def collide(self, collision):

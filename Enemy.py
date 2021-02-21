@@ -38,7 +38,11 @@ class Enemy():
         self.activeSprite = None
 
         # Collision
-        self.collider = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.colliderOffsetX = 32
+        self.colliderOffsetY = 32
+        self.colliderWidth = 64
+        self.colliderHeight = 64
+        self.collider = pygame.Rect(self.x + self.colliderOffsetX, self.y + self.colliderOffsetY, self.colliderWidth, self.colliderHeight)
 
         self.lastTick = 0
         self.animationFrame = 0
@@ -59,10 +63,6 @@ class Enemy():
             self.enemyState = EnemyState.IDLE
             self.animationFrame = 0
 
-        # Attack player if in distance
-        if math.sqrt((self.x - self.player.x) ** 2 + (self.y - self.player.y) ** 2) <= 1 * 16 * self.window.scaleFactor:
-            self.player.hit(self)
-
         # Set Direction To Moving
         if abs(self.velX) > abs(self.velY):
             if self.velX < 0: self.direction = Direction.LEFT
@@ -70,15 +70,24 @@ class Enemy():
         elif abs(self.velY) > abs(self.velX):
             if self.velY < 0: self.direction = Direction.UP
             elif self.velY > 0: self.direction = Direction.DOWN
+        
+        if self.velX > 1: self.velX = 1
+        if self.velX < -1: self.velX = -1
+        if self.velY > 1: self.velY = 1
+        if self.velY < -1: self.velY = -1
 
         self.x += self.velX
         self.y += self.velY
+
+        self.collider.x = self.x + self.colliderOffsetX
+        self.collider.y = self.y + self.colliderOffsetY
 
         self.animate(ticks)
 
     def render(self, scrollX, scrollY):
         # Render Enemy
         self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.activeSprite)
+        self.window.drawRect(self.collider.x - scrollX, self.collider.y - scrollY, self.colliderWidth, self.colliderHeight, 0, 0, 255)
 
     def animate(self, ticks):
         if self.enemyState == EnemyState.IDLE:

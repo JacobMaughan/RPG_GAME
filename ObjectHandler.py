@@ -44,6 +44,9 @@ class ObjectHandler():
                 elif tmpObject.ID == 'NewZoneTrigger':
                     if self.player.collider.colliderect(tmpObject.collider):
                         tmpObject.loadNewZone()
+                elif tmpObject.ID == 'Enemy':
+                    if self.player.collider.colliderect(tmpObject.collider):
+                        self.player.hit(tmpObject, ticks)
 
         # Scroll screen to player movement
         if self.objectState == GameState.GAME:

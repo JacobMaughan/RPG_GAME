@@ -16,7 +16,7 @@ from EventHandler import EventHandler
 from ObjectHandler import ObjectHandler
 from MapHandler import MapHandler
 from Player import Player
-from Enemy import Enemy
+from UI import UI
 
 class Game():
     def __init__(self):
@@ -81,6 +81,7 @@ class Game():
             self.objectHandler.clearObjects()
             self.mapHandler.loadMap(self.playerData['map'])
             self.objectHandler.addObject(Player(self.playerFile, self.window))
+            self.objectHandler.addObject(UI(self.objectHandler, self.window))
         elif self.state == GameState.PAUSE:
             pass
 

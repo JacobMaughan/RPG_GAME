@@ -24,6 +24,7 @@ class PlayerState(Enum):
     WALKING = 2
     ATTACKING = 3
     INTERACTING = 4
+    KNOCKED = 5
 
 class EnemyState(Enum):
     IDLE = 1

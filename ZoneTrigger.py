@@ -59,6 +59,7 @@ class ZoneTrigger():
     
     def loadNewZone(self):
         player = self.objectHandler.getObjectByID('Player')
+        ui = self.objectHandler.getObjectByID('UI')
         player.map = self.newZone
         player.x = self.newX
         player.y = self.newY
@@ -66,6 +67,7 @@ class ZoneTrigger():
         self.mapHandler.loadMap(self.newZone)
         self.objectHandler.removeObject(player)
         self.objectHandler.addObject(player)
+        self.objectHandler.addObject(ui)
         if self.direction == Direction.UP:
             self.objectHandler.scrollY = self.objectHandler.scrollClampY
         elif self.direction == Direction.LEFT:

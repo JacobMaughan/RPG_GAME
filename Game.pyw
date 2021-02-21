@@ -15,6 +15,7 @@ from JsonHandler import JsonHandler
 from EventHandler import EventHandler
 from ObjectHandler import ObjectHandler
 from MapHandler import MapHandler
+from MainMenu import MainMenu
 from Player import Player
 from UI import UI
 
@@ -77,10 +78,12 @@ class Game():
         # Check gamestate and load correct objects
         if self.state == GameState.MAIN_MENU:
             self.objectHandler.clearObjects()
+            self.objectHandler.addObject(MainMenu(self, self.window))
         elif self.state == GameState.GAME:
             self.objectHandler.clearObjects()
             self.mapHandler.loadMap(self.playerData['map'])
             self.objectHandler.addObject(Player(self.playerFile, self.window))
+            print(self.objectHandler.getObjectByID('Player'))
             self.objectHandler.addObject(UI(self.objectHandler, self.window))
         elif self.state == GameState.PAUSE:
             pass
@@ -103,7 +106,7 @@ class Game():
     def start(self):
         # Init game
         self._running = True
-        self.state = GameState.GAME
+        self.state = GameState.MAIN_MENU
         self.run()
     
     def stop(self):

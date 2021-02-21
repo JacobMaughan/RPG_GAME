@@ -65,7 +65,6 @@ class ZoneTrigger():
         player.y = self.newY
         self.objectHandler.clearObjects()
         self.mapHandler.loadMap(self.newZone)
-        self.objectHandler.removeObject(player)
         self.objectHandler.addObject(player)
         self.objectHandler.addObject(ui)
         if self.direction == Direction.UP:

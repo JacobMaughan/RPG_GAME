@@ -27,3 +27,7 @@ class Window():
     def drawText(self, x, y, text, font):
         textImage = font.render(text, True, (0, 0, 0))
         self.screen.blit(textImage, (x, y))
+    
+    def drawTextColored(self, x, y, text, font, r, g, b):
+        textImage = font.render(text, True, (r, g, b))
+        self.screen.blit(textImage, (x, y))

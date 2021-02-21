@@ -35,7 +35,7 @@ class Enemy():
         self._sprites = self.spriteSheet.getImageArray(32, 32, self.width, self.height)
 
         # Active Sprite
-        self.activeSprite = None
+        self.activeSprite = self._sprites[0][0]
 
         # Collision
         self.colliderOffsetX = 32
@@ -87,7 +87,6 @@ class Enemy():
     def render(self, scrollX, scrollY):
         # Render Enemy
         self.window.drawSprite(self.x - scrollX, self.y - scrollY, self.activeSprite)
-        self.window.drawRect(self.collider.x - scrollX, self.collider.y - scrollY, self.colliderWidth, self.colliderHeight, 0, 0, 255)
 
     def animate(self, ticks):
         if self.enemyState == EnemyState.IDLE:

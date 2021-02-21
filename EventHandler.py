@@ -20,6 +20,7 @@ class EventHandler():
 
         # Setup game state variables
         self.player = None
+        self.menu = None
 
     def tick(self, ticks):
         # Check for pygame event
@@ -31,11 +32,23 @@ class EventHandler():
             # Check for game state change and set player insance if 
             if not self.eventState == self.game.state:
                 self.eventState = self.game.state
-                # If game state set player instance as player object
-                if self.eventState == GameState.GAME:
-                    self.player = self.objectHandler.getObjectByID('Player')
-
+            
+            # Set Objects
+            if self.eventState == GameState.MAIN_MENU:
+                if self.menu == None:
+                    self.menu = self.objectHandler.getObjectByID('Menu')
             if self.eventState == GameState.GAME:
+                if self.player == None:
+                    self.player = self.objectHandler.getObjectByID('Player')
+            if self.eventState == GameState.MAIN_MENU:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_w or event.key == pygame.K_UP:
+                        self.menu.select(Direction.UP)
+                    elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                        self.menu.select(Direction.DOWN)
+                    elif event.key == pygame.K_BREAK or event.key == pygame.K_SPACE:
+                        self.menu.selectOption()
+            elif self.eventState == GameState.GAME:
                 # check for key down
                 if event.type == pygame.KEYDOWN:
                     # Move up

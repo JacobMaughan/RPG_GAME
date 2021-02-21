@@ -28,15 +28,16 @@ class ObjectHandler():
         # Check if game state changed and update object handler state
         if not self.objectState == self.game.state:
                 self.objectState = self.game.state
-                # Add player object to instance of player if in GAME state
-                if self.objectState == GameState.GAME:
-                    self.player = self.getObjectByID('Player')
+        # Add player object to instance of player if in GAME state
+        if self.objectState == GameState.GAME:
+            if self.player == None:
+                self.player = self.getObjectByID('Player')
         
         # Tick all loaded objects
         for tmpObject in self._objects:
             tmpObject.tick(ticks)
             # If in game state check for collision
-            if self.objectState == GameState.GAME:
+            if self.objectState == GameState.GAME and not self.player == None:
                 if tmpObject.ID == 'Tile':
                     if tmpObject.hasCollision:
                         if self.player.collider.colliderect(tmpObject.collider):
@@ -49,7 +50,7 @@ class ObjectHandler():
                         self.player.hit(tmpObject, ticks)
 
         # Scroll screen to player movement
-        if self.objectState == GameState.GAME:
+        if self.objectState == GameState.GAME and not self.player == None:
             self.scrollX += (self.player.x - self.scrollX - ((self.game.width - self.player.width) / 2)) / 100
             self.scrollY += (self.player.y - self.scrollY - ((self.game.height - self.player.height) / 2)) / 100
 

@@ -83,7 +83,6 @@ class Game():
             self.objectHandler.clearObjects()
             self.mapHandler.loadMap(self.playerData['map'])
             self.objectHandler.addObject(Player(self.playerFile, self.window))
-            print(self.objectHandler.getObjectByID('Player'))
             self.objectHandler.addObject(UI(self.objectHandler, self.window))
         elif self.state == GameState.PAUSE:
             pass

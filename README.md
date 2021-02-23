@@ -1,6 +1,8 @@
 # RPG_GAME
 
-A simple W.I.P game using pygame library and https://opengameart.org/content/zelda-like-tilesets-and-sprites tileset
+A simple open world game using pygame library and https://opengameart.org/content/zelda-like-tilesets-and-sprites tileset
+
+I've learned a lot from this project and am moving to use this in a better format.
 
 Current features include (Nothing to be proud of):
 1. Normal Movement
